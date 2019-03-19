@@ -1,0 +1,57 @@
+include $(TOPDIR)/rules.mk
+
+PKG_NAME:=qal
+PKG_RELEASE:=1
+PKG_FIXUP:=autoreconf
+
+LOCAL_SRC:=$(TOPDIR)/qca/src/vendor/qcom/opensource/qal
+include $(INCLUDE_DIR)/local-development.mk
+ifeq ($(DUMP)$(PKG_VERSION),)
+  PKG_REV:=$(shell git ls-remote $(PKG_SOURCE_URL) $(PKG_BRANCH) | cut -b -7)
+  PKG_VERSION:=g$(PKG_REV)
+endif
+
+include $(INCLUDE_DIR)/package.mk
+
+define Package/qal
+  SECTION:=AUDIO
+  CATEGORY:=AUDIO
+  DEPENDS:= +tinyalsa +gsl +audio-route +libstdcpp
+  MAINTAINER:=QTI MM Audio
+  TITLE:=QAL
+  SUBMENU:=CASA
+endef
+
+define Package/qal/description
+  This package contails qal
+endef
+
+CONFIGURE_ARGS += \
+                  --with-openwrt
+
+TARGET_CFLAGS += \
+                 -I$(STAGING_DIR)/usr/include/osal/ \
+                 -I$(STAGING_DIR)/usr/include/gsl/ \
+                 -I$(STAGING_DIR)/usr/include/audio_route/
+
+TARGET_LDFLAGS += \
+                 -L$(STAGING_DIR)/usr/lib/osal/ \
+                 -L$(STAGING_DIR)/usr/lib/tinyalsa/ \
+                 -L$(STAGING_DIR)/usr/lib/audio_route/
+
+define Build/InstallDev
+	$(INSTALL_DIR) $(1)/usr/include/qal/
+	$(INSTALL_DIR) $(1)/usr/lib/qal/
+	$(CP) $(PKG_BUILD_DIR)/device/inc $(1)/usr/include/qal/
+	$(CP) $(PKG_BUILD_DIR)/resource_manager/inc $(1)/usr/include/qal/
+	$(CP) $(PKG_BUILD_DIR)/session/inc $(1)/usr/include/qal/
+	$(CP) $(PKG_BUILD_DIR)/stream/inc $(1)/usr/include/qal/
+	$(CP) $(PKG_BUILD_DIR)/.libs/libqal.so $(1)/usr/lib/qal/
+endef
+
+define Package/qal/install
+	$(INSTALL_DIR) $(1)/usr/lib
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/.libs/libqal.so $(1)/usr/lib
+endef
+
+$(eval $(call BuildPackage,qal))
