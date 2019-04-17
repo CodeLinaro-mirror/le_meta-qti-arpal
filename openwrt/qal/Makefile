@@ -16,7 +16,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/qal
   SECTION:=AUDIO
   CATEGORY:=AUDIO
-  DEPENDS:= +tinyalsa +gsl +audio-route +libstdcpp
+  DEPENDS:= +tinyalsa +audio-route +libstdcpp +gsl
   MAINTAINER:=QTI MM Audio
   TITLE:=QAL
   SUBMENU:=CASA
@@ -42,10 +42,11 @@ TARGET_LDFLAGS += \
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/include/qal/
 	$(INSTALL_DIR) $(1)/usr/lib/qal/
-	$(CP) $(PKG_BUILD_DIR)/device/inc $(1)/usr/include/qal/
-	$(CP) $(PKG_BUILD_DIR)/resource_manager/inc $(1)/usr/include/qal/
-	$(CP) $(PKG_BUILD_DIR)/session/inc $(1)/usr/include/qal/
-	$(CP) $(PKG_BUILD_DIR)/stream/inc $(1)/usr/include/qal/
+	$(CP) $(PKG_BUILD_DIR)/*.h $(1)/usr/include/qal/
+	$(CP) $(PKG_BUILD_DIR)/device/inc/ $(1)/usr/include/qal/
+	$(CP) $(PKG_BUILD_DIR)/resource_manager/inc/ $(1)/usr/include/qal/
+	$(CP) $(PKG_BUILD_DIR)/session/inc/ $(1)/usr/include/qal/
+	$(CP) $(PKG_BUILD_DIR)/stream/inc/ $(1)/usr/include/qal/
 	$(CP) $(PKG_BUILD_DIR)/.libs/libqal.so $(1)/usr/lib/qal/
 endef
 
