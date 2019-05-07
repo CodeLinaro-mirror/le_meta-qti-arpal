@@ -8,10 +8,21 @@ ${LICENSE};md5=3775480a712fc46a69647678acb234cb"
 
 FILESPATH =+ "${WORKSPACE}/:"
 SRC_URI  = "file://vendor/qcom/opensource/qal/"
+SRC_URI += "file://${BASEMACHINE}/"
 
 S = "${WORKDIR}/vendor/qcom/opensource/qal/"
 PR = "r0"
+DEPENDS = "tinyalsa system-media gsl expat glib-2.0"
 
-DEPENDS = "tinyalsa gsl libcutils libhardware liblog system-media"
+EXTRA_OECONF += "--with-glib"
+
+do_install_append() {
+       install -d ${D}${sysconfdir}
+       install -m 0755 ${WORKDIR}/${BASEMACHINE}/* ${D}${sysconfdir}/
+       mkdir -p -m 0755 ${D}${sysconfdir}/acdbdata/MTP
+       install -m 0755 ${WORKDIR}/${BASEMACHINE}/acdb_cal.acdb ${D}${sysconfdir}/acdbdata/MTP/
+}
+
 SOLIBS = ".so"
+
 FILES_SOLIBSDEV = ""
