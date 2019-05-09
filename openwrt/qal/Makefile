@@ -16,7 +16,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/qal
   SECTION:=AUDIO
   CATEGORY:=AUDIO
-  DEPENDS:= +tinyalsa +audio-route +libstdcpp +gsl
+  DEPENDS:= +tinyalsa +audio-route +libstdcpp +gsl +glib2 +libexpat +capiv2-headers
   MAINTAINER:=QTI MM Audio
   TITLE:=QAL
   SUBMENU:=CASA
@@ -32,7 +32,10 @@ CONFIGURE_ARGS += \
 TARGET_CFLAGS += \
                  -I$(STAGING_DIR)/usr/include/osal/ \
                  -I$(STAGING_DIR)/usr/include/gsl/ \
-                 -I$(STAGING_DIR)/usr/include/audio_route/
+                 -I$(STAGING_DIR)/usr/include/gecko/ \
+                 -I$(STAGING_DIR)/usr/include/audio_route/ \
+                 -I$(STAGING_DIR)/usr/include/glib-2.0/ \
+                 -I$(STAGING_DIR)/usr/include/capiv2_headers/
 
 TARGET_LDFLAGS += \
                  -L$(STAGING_DIR)/usr/lib/osal/ \
@@ -47,6 +50,7 @@ define Build/InstallDev
 	$(CP) $(PKG_BUILD_DIR)/resource_manager/inc/ $(1)/usr/include/qal/
 	$(CP) $(PKG_BUILD_DIR)/session/inc/ $(1)/usr/include/qal/
 	$(CP) $(PKG_BUILD_DIR)/stream/inc/ $(1)/usr/include/qal/
+	$(CP) $(PKG_BUILD_DIR)/utils/inc/ $(1)/usr/include/qal/
 	$(CP) $(PKG_BUILD_DIR)/.libs/libqal.so $(1)/usr/lib/qal/
 endef
 
