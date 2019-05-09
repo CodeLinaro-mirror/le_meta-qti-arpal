@@ -16,7 +16,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/qal
   SECTION:=AUDIO
   CATEGORY:=AUDIO
-  DEPENDS:= +tinyalsa +audio-route +libstdcpp +gsl +glib2 +libexpat +capiv2-headers
+  DEPENDS:= +tinyalsa +audio-utils +libstdcpp +gsl +glib2 +libexpat +capiv2-headers
   MAINTAINER:=QTI MM Audio
   TITLE:=QAL
   SUBMENU:=CASA
