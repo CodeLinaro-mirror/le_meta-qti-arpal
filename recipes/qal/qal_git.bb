@@ -19,8 +19,6 @@ EXTRA_OECONF += "--with-glib"
 do_install_append() {
        install -d ${D}${sysconfdir}
        install -m 0755 ${WORKDIR}/${BASEMACHINE}/* ${D}${sysconfdir}/
-       mkdir -p -m 0755 ${D}${sysconfdir}/acdbdata/MTP
-       install -m 0755 ${WORKDIR}/${BASEMACHINE}/acdb_cal.acdb ${D}${sysconfdir}/acdbdata/MTP/
 }
 
 SOLIBS = ".so"
