@@ -38,20 +38,18 @@ TARGET_CFLAGS += \
                  -I$(STAGING_DIR)/usr/include/capiv2_headers/
 
 TARGET_LDFLAGS += \
-                 -L$(STAGING_DIR)/usr/lib/osal/ \
-                 -L$(STAGING_DIR)/usr/lib/tinyalsa/ \
-                 -L$(STAGING_DIR)/usr/lib/audio_route/
+                 -L$(STAGING_DIR)/usr/lib/
 
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/include/qal/
-	$(INSTALL_DIR) $(1)/usr/lib/qal/
+	$(INSTALL_DIR) $(1)/usr/lib/
 	$(CP) $(PKG_BUILD_DIR)/*.h $(1)/usr/include/qal/
 	$(CP) $(PKG_BUILD_DIR)/device/inc/ $(1)/usr/include/qal/
 	$(CP) $(PKG_BUILD_DIR)/resource_manager/inc/ $(1)/usr/include/qal/
 	$(CP) $(PKG_BUILD_DIR)/session/inc/ $(1)/usr/include/qal/
 	$(CP) $(PKG_BUILD_DIR)/stream/inc/ $(1)/usr/include/qal/
 	$(CP) $(PKG_BUILD_DIR)/utils/inc/ $(1)/usr/include/qal/
-	$(CP) $(PKG_BUILD_DIR)/.libs/libqal.so $(1)/usr/lib/qal/
+	$(CP) $(PKG_BUILD_DIR)/.libs/libqal.so $(1)/usr/lib/
 endef
 
 define Package/qal/install
