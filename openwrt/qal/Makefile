@@ -54,7 +54,11 @@ endef
 
 define Package/qal/install
 	$(INSTALL_DIR) $(1)/usr/lib
+	$(INSTALL_DIR) $(1)/etc
+	$(INSTALL_DIR) $(1)/etc/acdbdata/MTP
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/.libs/libqal.so $(1)/usr/lib
+	$(INSTALL_BIN) ./files/*.xml $(1)/etc
+	$(INSTALL_BIN) ./files/acdb_cal.acdb $(1)/etc/acdbdata/MTP
 endef
 
 $(eval $(call BuildPackage,qal))
