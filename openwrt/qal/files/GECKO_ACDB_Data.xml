@@ -1,0 +1,3410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2019, The Linux Foundation. All rights reserved.            -->
+<!--                                                                           -->
+<!-- Redistribution and use in source and binary forms, with or without        -->
+<!-- modification, are permitted provided that the following conditions are    -->
+<!-- met:                                                                      -->
+<!--     * Redistributions of source code must retain the above copyright      -->
+<!--       notice, this list of conditions and the following disclaimer.       -->
+<!--     * Redistributions in binary form must reproduce the above             -->
+<!--       copyright notice, this list of conditions and the following         -->
+<!--       disclaimer in the documentation and/or other materials provided     -->
+<!--       with the distribution.                                              -->
+<!--     * Neither the name of The Linux Foundation nor the names of its       -->
+<!--       contributors may be used to endorse or promote products derived     -->
+<!--       from this software without specific prior written permission.       -->
+<!--                                                                           -->
+<!-- THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED              -->
+<!-- WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF      -->
+<!-- MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT    -->
+<!-- ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS    -->
+<!-- BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR    -->
+<!-- CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF      -->
+<!-- SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR           -->
+<!-- BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,     -->
+<!-- OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN    -->
+<!-- IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                             -->
+<ACDB_DATA CLIVers="1">
+  <!--Rules: 
+      1. SG id starts from 0xB0000001
+      2. Container id starts from 0xE0000001
+      3. Moudule IID starts from 1 globally-->
+  <!--All Key Definitions-->
+  <KEY_DEF>
+    <Key id="0xA1000000" name="Stream" >
+      <Value val="0xA1000001" name="PCM_Playback" />
+      <Value val="0xA1000002" name="PCM_Record" />
+      <Value val="0xA1000003" name="PCM_Loopback" />
+      <Value val="0xA1000004" name="Voice_UI" />
+      <Value val="0xA1000005" name="Voip_Rx" />
+      <Value val="0xA1000006" name="Voip_Tx" />
+    </Key>
+    <Key id="0xA2000000" name="DeviceRX" >
+      <Value val="0xA2000001" name="Speaker" />
+    </Key>
+    <Key id="0xA3000000" name="DeviceTX" >
+      <Value val="0xA3000001" name="HandsetMic" />
+    </Key>
+    <Key id="0xA4000000" name="Volume" >
+      <Value val="0" name="Level_0" />
+      <Value val="1" name="Level_1" />
+      <Value val="2" name="Level_2" />
+      <Value val="3" name="Level_3" />
+      <Value val="4" name="Level_4" />
+      <Value val="5" name="Level_5" />
+      <Value val="6" name="Level_6" />
+      <Value val="7" name="Level_7" />
+      <Value val="8" name="Level_8" />
+      <Value val="9" name="Level_9" />
+      <Value val="10" name="Level_10" />
+      <Value val="11" name="Level_11" />
+      <Value val="12" name="Level_12" />
+      <Value val="13" name="Level_13" />
+      <Value val="14" name="Level_14" />
+      <Value val="15" name="Level_15" />
+    </Key>
+    <Key id="0xA5000000" name="SamplingRate" >
+      <Value val="8000" name="8K" />
+      <Value val="16000" name="16K" />
+      <Value val="44100" name="44.1K" />
+      <Value val="48000" name="48K" />
+    </Key>
+    <Key id="0xA6000000" name="BitWidth" >
+      <Value val="16" name="16Bit" />
+      <Value val="24" name="24Bit" />
+      <Value val="32" name="32Bit" />
+    </Key>
+    <Key id="0xA7000000" name="Pause" >
+      <Value val="0" name="Off" />
+      <Value val="1" name="On" />
+    </Key>
+    <Key id="0xA8000000" name="Mute" >
+      <Value val="0" name="Off" />
+      <Value val="1" name="On" />
+    </Key>
+    <Key id="0xA9000000" name="Channels" >
+      <Value val="1" name="1CH" />
+      <Value val="2" name="2CH" />
+    </Key>
+  </KEY_DEF>
+  <!--All Tag Definitions-->
+  <TAG_DEF>
+    <Tag id="0xC0000001" name="sh_ep" />
+    <Tag id="0xC0000002" name="stream_input_media_format" />
+    <Tag id="0xC0000003" name="stream_pcm_decoder" />
+	<Tag id="0xC0000004" name="stream_pcm_encoder" />
+	<Tag id="0xC0000005" name="stream_pcm_converter" />
+    <Tag id="0xC0000006" name="device_hw_ep_rx" >
+      <Key name="DeviceRx" />
+      <Key name="SamplingRate" />
+      <Key name="BitWidth" />
+      <Key name="Channels" />
+    </Tag>
+    <Tag id="0xC0000007" name="device_hw_ep_tx" >
+      <Key name="DeviceTx" />
+      <Key name="SamplingRate" />
+      <Key name="BitWidth" />
+      <Key name="Channels" />
+     </Tag>
+    <Tag id="0xC0000008" name="pause" >
+      <Key name="Pause" />
+     </Tag>
+    <Tag id="0xC0000009" name="mute" >
+        <Key name="Mute" />
+     </Tag>
+    <Tag id="0xC0000010" name="device_sva" />
+    <Tag id="0xC0000011" name="device_adam" />
+	<Tag id="0xC000000A" name="svolume" >
+        <Key name="Volume" />
+     </Tag>
+  </TAG_DEF>
+  <!--Propety Definitions-->
+  <PROP_DEF>
+    <PROP name="SG_PROP_ID_PERF_MODE" id="0x0800100E">
+      <Value name="LOW_POWER" val="1" />
+      <Value name="LOW_LATENCY" val="2" />
+    </PROP>
+    <PROP name="SG_PROP_ID_DIRECTION" id="0x0800100F">
+      <Value name="TX" val="1" />
+      <Value name="RX" val="2" />
+    </PROP>
+    <PROP name="SG_PROP_ID_SCENARIO_ID" id="0x08001010">
+      <Value name="AUDIO_PLAYBACK" val="1" />
+      <Value name="AUDIO_RECORD" val="2" />
+      <Value name="LOOPBACK" val="1" />
+    </PROP>
+    <PROP name="CONT_PROP_ID_CAPABILITY_LIST" id="0x08001011">
+      <Value name="PP" val="1" />
+      <Value name="CD" val="2" />
+      <Value name="EP" val="3" />
+      <Value name="MX" val="4" />
+    </PROP>
+    <PROP name="CONT_PROP_ID_GRAPH_POS" id="0x08001012">
+      <Value name="STREAM" val="1" />
+      <Value name="PER_STR_PER_DEV" val="2" />
+      <Value name="STR_DEV" val="3" />
+      <Value name="GLOBAL_DEV" val="4" />
+    </PROP>
+    <PROP name="CONT_PROP_ID_STACK_SIZE" id="0x08001013">
+    </PROP>
+    <PROP name="CONT_PROP_ID_PROC_DOMAIN" id="0x08001014">
+      <Value name="ADSP" val="1" />
+      <Value name="MDSP" val="2" />
+      <Value name="SDSP" val="3" />
+    </PROP>
+  </PROP_DEF>
+  <!--All Graphs-->
+  <GRAPH_LIST>
+    <GRAPH name="Playback">
+      <GKV>
+        <KeyVal key="Stream" val="PCM_Playback" />
+        <KeyVal key="DeviceRx" val="Speaker" />
+      </GKV>
+      <SGs>
+        <SG name="Playback_SG_Stream" />
+        <SG name="Playback_SG_Stream_Device_PP" />
+        <SG name="SPKR_SG_Device_EP" />
+      </SGs>
+      <SGPairs>
+        <SGPair sgid_src="Playback_SG_Stream" sgid_dst="Playback_SG_Stream_Device_PP" >
+          <Connection mid="APM_MODULE_ID" pid="PARAM_ID_CON_LIST">
+            <SrcMod iid="0x401B" portId="1" />
+            <DstMod iid="0x401C" portId="2" />
+          </Connection>
+        </SGPair>
+        <SGPair sgid_src="Playback_SG_Stream_Device_PP" sgid_dst="SPKR_SG_Device_EP" >
+          <Connection mid="APM_MODULE_ID" pid="PARAM_ID_CON_LIST">
+            <SrcMod iid="0x4006" portId="1" />
+            <DstMod iid="0x4012" portId="2" />
+          </Connection>
+        </SGPair>
+      </SGPairs>
+    </GRAPH>
+    <GRAPH name="Record">
+      <GKV>
+        <KeyVal key="Stream" val="PCM_Record" />
+        <KeyVal key="DeviceTx" val="HandsetMic" />
+      </GKV>
+      <SGs>
+        <SG name="MIC_SG_Device_EP" />
+        <SG name="Record_SG_Stream" />
+      </SGs>
+      <SGPairs>
+        <SGPair sgid_src="MIC_SG_Device_EP" sgid_dst="Record_SG_Stream" >
+          <Connection mid="APM_MODULE_ID" pid="PARAM_ID_CON_LIST">
+            <SrcMod iid="0x4011" portId="1" />
+            <DstMod iid="0x400B" portId="2" />
+          </Connection>
+        </SGPair>
+      </SGPairs>
+    </GRAPH>
+    <GRAPH name="Loopback">
+      <GKV>
+        <KeyVal key="DeviceTx" val="HandsetMic" />
+        <KeyVal key="Stream" val="PCM_Loopback" />
+        <KeyVal key="DeviceRx" val="Speaker" />
+      </GKV>
+      <SGs>
+        <SG name="MIC_SG_Device_EP" />
+        <SG name="Loopback_SG_Stream" />
+        <SG name="SPKR_SG_Device_EP" />
+      </SGs>
+      <SGPairs>
+        <SGPair sgid_src="MIC_SG_Device_EP" sgid_dst="Loopback_SG_Stream" >
+          <Connection mid="APM_MODULE_ID" pid="PARAM_ID_CON_LIST">
+            <SrcMod iid="0x4011" portId="3" />
+            <DstMod iid="0x4013" portId="2" />
+          </Connection>
+        </SGPair>
+        <SGPair sgid_src="Loopback_SG_Stream" sgid_dst="SPKR_SG_Device_EP" >
+          <Connection mid="APM_MODULE_ID" pid="PARAM_ID_CON_LIST">
+            <SrcMod iid="0x4015" portId="1" />
+            <DstMod iid="0x4012" portId="4" />
+          </Connection>
+        </SGPair>
+      </SGPairs>
+    </GRAPH>
+    <GRAPH name="Voice_UI">
+      <GKV>
+        <KeyVal key="Stream" val="Voice_UI" />
+        <KeyVal key="DeviceTx" val="HandsetMic" />
+      </GKV>
+      <SGs>
+        <SG name="MIC_SG_Device_EP" />
+        <SG name="VOICE_UI_DEV_PP_SG" />
+        <SG name="VOICE_UI_STREAM_SG" />
+      </SGs>
+      <SGPairs>
+        <SGPair sgid_src="MIC_SG_Device_EP" sgid_dst="VOICE_UI_DEV_PP_SG" >
+          <Connection mid="APM_MODULE_ID" pid="PARAM_ID_CON_LIST">
+            <SrcMod iid="0x4011" portId="5" />
+            <DstMod iid="0x4021" portId="2" />
+          </Connection>
+	    </SGPair>
+        <SGPair sgid_src="VOICE_UI_DEV_PP_SG" sgid_dst="VOICE_UI_STREAM_SG" >
+          <Connection mid="APM_MODULE_ID" pid="PARAM_ID_CON_LIST">
+            <SrcMod iid="0x4023" portId="1" />
+            <DstMod iid="0x4025" portId="2" />
+          </Connection>
+          <Connection mid="APM_MODULE_ID" pid="PARAM_ID_CON_LIST">
+            <SrcMod iid="0x4024" portId="1" />
+            <DstMod iid="0x4026" portId="2" />
+          </Connection>
+		  <Ctrl_Connection mid="APM_MODULE_ID" pid="PARAM_ID_CTRL_LINK_LIST">
+			<ModPeer1 iid="0x4024" portId="0x80000001" /> 
+			<ModPeer2 iid="0x4025" portId="0x80000001" /> 
+			<Intent id="0x08001064" />
+		  </Ctrl_Connection>
+        </SGPair>
+      </SGPairs>
+    </GRAPH>
+    <GRAPH name="Voip_Rx">
+      <GKV>
+        <KeyVal key="Stream" val="Voip_Rx" />
+        <KeyVal key="DeviceRx" val="Speaker" />
+      </GKV>
+      <SGs>
+        <SG name="Voip_Rx_SG_Stream" />
+        <SG name="Voip_Rx_SG_Stream_Device_PP" />
+        <SG name="SPKR_SG_Device_EP" />
+      </SGs>
+      <SGPairs>
+        <SGPair sgid_src="Voip_Rx_SG_Stream" sgid_dst="Voip_Rx_SG_Stream_Device_PP" >
+          <Connection mid="APM_MODULE_ID" pid="PARAM_ID_CON_LIST">
+            <SrcMod iid="0x4041" portId="1" />
+            <DstMod iid="0x4042" portId="2" />
+          </Connection>
+        </SGPair>
+        <SGPair sgid_src="Voip_Rx_SG_Stream_Device_PP" sgid_dst="SPKR_SG_Device_EP" >
+          <Connection mid="APM_MODULE_ID" pid="PARAM_ID_CON_LIST">
+            <SrcMod iid="0x4048" portId="1" />
+            <DstMod iid="0x4012" portId="6" />
+          </Connection>
+        </SGPair>
+      </SGPairs>
+    </GRAPH>
+    <GRAPH name="Voip_Tx">
+      <GKV>
+        <KeyVal key="Stream" val="Voip_Tx" />
+        <KeyVal key="DeviceTx" val="HandsetMic" />
+      </GKV>
+      <SGs>
+        <SG name="Voip_Tx_SG_Stream" />
+        <SG name="Voip_Tx_SG_Stream_Device_PP" />
+        <SG name="MIC_SG_Device_EP" />
+      </SGs>
+      <SGPairs>
+        <SGPair sgid_src="MIC_SG_Device_EP" sgid_dst="Voip_Tx_SG_Stream_Device_PP" >
+          <Connection mid="APM_MODULE_ID" pid="PARAM_ID_CON_LIST">
+            <SrcMod iid="0x4011" portId="7" />
+            <DstMod iid="0x4037" portId="2" />
+          </Connection>
+        </SGPair>
+        <SGPair sgid_src="Voip_Tx_SG_Stream_Device_PP" sgid_dst= "Voip_Tx_SG_Stream">
+          <Connection mid="APM_MODULE_ID" pid="PARAM_ID_CON_LIST">
+            <SrcMod iid="0x4030" portId="1" />
+            <DstMod iid="0x402F" portId="2" />
+          </Connection>
+        </SGPair>
+      </SGPairs>
+    </GRAPH>
+  </GRAPH_LIST>
+  <!--All SubGraphs-->
+  <SG_LIST>
+    <SG name="Playback_SG_Stream" id="0xB0000001" >
+      <!--Key Vectors-->
+      <KVs>
+        <!--One Key Vector, containing one or more KeyVal pair(s)-->
+        <KV>
+          <KeyVal key="Stream" val="PCM_Playback" />
+        </KV>
+      </KVs>
+      <!--Driver Prop Data. All ids and vals should be defined by driver-->
+      <Driver_Prop>
+        <SG_Prop id="0x08000001">
+          <RoutingID val="0x1" name="ADSP"/>
+          <Flushable val="0x1" name="True"/>
+        </SG_Prop>
+      </Driver_Prop>
+      <!--Gecko Prop Data-->
+      <Gecko_Prop>
+        <SG_CFG>
+          <Prop id="SG_PROP_ID_PERF_MODE" val="LOW_POWER" />
+          <Prop id="SG_PROP_ID_DIRECTION" val="RX" />
+          <Prop id="SG_PROP_ID_SCENARIO_ID" val="AUDIO_PLAYBACK" />
+        </SG_CFG>
+        <CONT_CFG>
+          <!--Can have more than one containers-->
+          <Container name="Playback_CDC">
+            <!--module list only contains modules in a SG AND a container-->
+            <MOD_LIST>
+              <Module name="MID_WR_SHARED_MEM_EP" id="0x07001000" iid ="0x4001" />
+              <Module name="MID_DATA_LOGGING" id="0x0700101A" iid ="0x4002">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_DATA_LOGGING" id="0x08001031" hexStr="2E1500000100000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+              <Module name="MID_PCM_DECODER" id="0x07001005" iid ="0x4003"/>
+              <Module name="MID_PCM_CONVERTER" id="0x07001003" iid ="0x4004"/>
+              <Module name="MID_DATA_LOGGING" id="0x0700101A" iid ="0x4005">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_DATA_LOGGING" id="0x08001031" hexStr="AF1900000100000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+            </MOD_LIST>
+          </Container>
+          <Container name="Playback_PPC">
+            <!--module list only contains modules in a SG AND a container-->
+            <MOD_LIST>
+              <Module name="MID_DATA_LOGGING" id="0x0700101A" iid ="0x4018">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_DATA_LOGGING" id="0x08001031" hexStr="2F1500000100000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+              <Module name="MID_VOL_CTRL" id="0x0700101B" iid ="0x401F">
+                <KVs>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_0"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="02000000010000000000000000000010020000000000000000000010"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_1"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000F5BE530B0200000000000000F5BE530B"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_2"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000E8DC04080200000000000000E8DC0408"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_3"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000CE50AD050200000000000000CE50AD05"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_4"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="02000000010000000000000062DE0404020000000000000062DE0404"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_5"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="0200000001000000000000001C62D80202000000000000001C62D802"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_6"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000E6A703020200000000000000E6A70302"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_7"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="0200000001000000000000006F0E6D0102000000000000006F0E6D01"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_8"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000AC7002010200000000000000AC700201"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_9"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="0200000001000000000000002BF6B60002000000000000002BF6B600"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_10"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000E28681000200000000000000E2868100"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_11"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000B1B25B000200000000000000B1B25B00"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_12"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000CFEA40000200000000000000CFEA4000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_13"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="02000000010000000000000037F52D00020000000000000037F52D00"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_14"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="02000000010000000000000023892000020000000000000023892000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_15"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="02000000010000000000000094081700020000000000000094081700"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+              <Module name="MID_SOFT_PAUSE" id="0x07001019" iid ="0x4019">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_SOFT_VOL_STEPPING_PARAM" id="0x0800102D" hexStr="28000000E80300000100000028000000E803000001000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+              <Module name="MID_MFC" id="0x07001015" iid ="0x401A">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_MFC_OUTPUT_MEDIA_FORMAT_V2" id="0x08001024" hexStr="FFFFFFFFFFFFFFFF"/>
+		              <PID_Data name="PID_MFC_RESAMPLER_CFG" id="0x0800104D" hexStr="000000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+              <Module name="MID_DATA_LOGGING" id="0x0700101A" iid ="0x401B">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_DATA_LOGGING" id="0x08001031" hexStr="811900000100000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+            </MOD_LIST>
+          </Container>
+        </CONT_CFG>
+        <Mod_Conn>
+          <!--Connection(s) inside one SG-->
+          <Connection>
+            <SrcMod id="0x07001000" iid ="0x4001" portId="1" />
+            <DstMod id="0x0700101A" iid ="0x4002" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x0700101A" iid ="0x4002" portId="1" />
+            <DstMod id="0x07001005" iid ="0x4003" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x07001005" iid ="0x4003" portId="1" />
+            <DstMod id="0x07001003" iid ="0x4004" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x07001003" iid ="0x4004" portId="1" />
+            <DstMod id="0x0700101A" iid ="0x4005" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x0700101A" iid ="0x4005" portId="1" />
+            <DstMod id="0x0700101A" iid ="0x4018" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x0700101A" iid ="0x4018" portId="1" />
+            <DstMod id="0x0700101B" iid ="0x401F" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x0700101B" iid ="0x401F" portId="1" />
+            <DstMod id="0x07001019" iid ="0x4019" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x07001019" iid ="0x4019" portId="1" />
+            <DstMod id="0x07001015" iid ="0x401A" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x07001015" iid ="0x401A" portId="1" />
+            <DstMod id="0x0700101A" iid ="0x401B" portId="2" />
+          </Connection>
+        </Mod_Conn>
+      </Gecko_Prop>
+      <!--ModTag node holds all module tag related data for a SG-->
+      <ModTag>
+        <Tagged_Mod name="sh_ep" >
+          <mod id="0x07001000" iid="0x4001" />
+        </Tagged_Mod>
+        <Tagged_Mod name="stream_input_media_format" >
+          <mod id="0x07001000" iid="0x4001" />
+        </Tagged_Mod>
+        <Tagged_Mod name="stream_pcm_decoder" >
+          <mod id="0x07001005" iid="0x4003" />
+        </Tagged_Mod>
+		<Tagged_Mod name="stream_pcm_converter" >
+		   <mod id="0x07001003" iid="0x4004" />
+        </Tagged_Mod>
+		<Tagged_Mod name="svolume" >
+          <mod id="0x0700101B" iid="0x401F" />
+        </Tagged_Mod>
+        <Tagged_Mod name="pause" >
+          <mod id="0x07001019" iid="0x4019" />
+        </Tagged_Mod>
+        <Tag name="pause">
+          <Tag_Indices>
+            <KeyVal key="Pause" val="On" />
+          </Tag_Indices>
+          <Tag_Data>
+            <Data iid="0x4019" name="PARAM_ID_SOFT_PAUSE_START" pid="0x0800102E" hexStr="" />
+          </Tag_Data>
+        </Tag>
+        <Tag name="pause">
+          <Tag_Indices>
+            <KeyVal key="Pause" val="Off" />
+          </Tag_Indices>
+          <Tag_Data>
+            <Data iid="0x4019" name="PARAM_ID_SOFT_PAUSE_RESUME" pid="0x0800102F" hexStr="" />
+          </Tag_Data>
+        </Tag>
+      <Tagged_Mod name="mute" >
+          <mod id="0x0700101B" iid="0x401F" />
+        </Tagged_Mod>
+        <Tag name="mute">
+          <Tag_Indices>
+            <KeyVal key="Mute" val="On" />
+          </Tag_Indices>
+          <Tag_Data>
+            <Data iid="0x401F" name="PID_VOL_MULTICHAN_MUTE" pid="0x08001039" hexStr="01000000060000000000000001000000" />
+          </Tag_Data>
+        </Tag>
+        <Tag name="mute">
+          <Tag_Indices>
+            <KeyVal key="Mute" val="Off" />
+          </Tag_Indices>
+          <Tag_Data>
+            <Data iid="0x401F" name="PID_VOL_MULTICHAN_MUTE" pid="0x08001039" hexStr="01000000060000000000000000000000" />
+          </Tag_Data>
+        </Tag>
+      </ModTag>
+    </SG>
+    <SG name="Playback_SG_Stream_Device_PP" id="0xB0000008" >
+      <!--Key Vectors-->
+      <KVs>
+        <!--One Key Vector, containing one or more KeyVal pair(s)-->
+        <KV>
+          <KeyVal key="Stream" val="PCM_Playback" />
+          <KeyVal key="DeviceRx" val="Speaker" />
+        </KV>
+      </KVs>
+      <!--Driver Prop Data. All ids and vals should be defined by driver-->
+      <Driver_Prop>
+        <SG_Prop id="0x08000001">
+          <RoutingID val="0x1" name="ADSP"/>
+          <Flushable val="0x0" name="False"/>
+        </SG_Prop>
+      </Driver_Prop>
+      <!--Gecko Prop Data-->
+      <Gecko_Prop>
+        <SG_CFG>
+          <Prop id="SG_PROP_ID_PERF_MODE" val="LOW_POWER" />
+          <Prop id="SG_PROP_ID_DIRECTION" val="RX" />
+        </SG_CFG>
+        <CONT_CFG>
+          <!--Can have more than one containers-->
+          <Container name="Playback_Stream_Device_PPC">
+            <!--module list only contains modules in a SG AND a container-->
+            <MOD_LIST>
+              <Module name="MID_DATA_LOGGING" id="0x0700101A" iid ="0x401C">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_DATA_LOGGING" id="0x08001031" hexStr="311500000200000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+              <Module name="MID_MFC" id="0x07001015" iid ="0x401D">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_MFC_OUTPUT_MEDIA_FORMAT_V2" id="0x08001024" hexStr="80BB00001000020001000200"/>
+                    </CalData>					
+                  </KV>
+                </KVs>
+              </Module>
+              <Module name="MID_MS_IIR" id="0x07001014" iid ="0x401E" >
+              <KVs>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_0"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_1"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_2"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_3"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_4"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_5"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_6"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_7"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_8"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_9"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_10"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_11"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_12"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_13"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_14"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_15"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+              </KVs>
+              </Module>
+              <Module name="MID_MS_MBDRC" id="0x07001017" iid ="0x4017" >
+              <KVs>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_0"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_1"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_2"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_3"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_4"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_5"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_6"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_7"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_8"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_9"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_10"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_11"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_12"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_13"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_14"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_15"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_COL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+					<PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+              </KVs>
+              </Module>
+              <Module name="MID_DATA_LOGGING" id="0x0700101A" iid ="0x4016">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_DATA_LOGGING" id="0x08001031" hexStr="2F1500000100000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+              <Module name="MID_MFC" id="0x07001015" iid ="0x4006">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_MFC_OUTPUT_MEDIA_FORMAT_V2" id="0x08001024" hexStr="80BB00001000020001000200"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+            </MOD_LIST>
+          </Container>
+        </CONT_CFG>
+        <Mod_Conn>
+          <!--Connection(s) inside one SG-->
+          <Connection>
+            <SrcMod id="0x0700101A" iid ="0x401C" portId="1" />
+            <DstMod id="0x07001015" iid ="0x401D" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x07001015" iid ="0x401D" portId="1" />
+            <DstMod id="0x07001014" iid ="0x401E" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x07001014" iid ="0x401E" portId="1" />
+            <DstMod id="0x07001017" iid ="0x4017" portId="2" />
+          </Connection>          
+          <Connection>
+            <SrcMod id="0x07001017" iid ="0x4017" portId="1" />
+            <DstMod id="0x0700101A" iid ="0x4016" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x0700101A" iid ="0x4016" portId="1" />
+            <DstMod id="0x07001015" iid ="0x4006" portId="2" />
+          </Connection>
+        </Mod_Conn>
+      </Gecko_Prop>
+      <!--ModTag node holds all module tag related data for a SG-->
+      <ModTag>
+      </ModTag>
+    </SG>
+    <SG name="SPKR_SG_Device_EP" id="0xB0000002" >
+      <!--Key Vectors-->
+      <KVs>
+        <!--One Key Vector, containing one or more KeyVal pair(s)-->
+        <KV>
+          <KeyVal key="DeviceRx" val="Speaker" />
+        </KV>
+      </KVs>
+      <!--Driver Prop Data. All ids and vals should be defined by driver-->
+      <Driver_Prop>
+        <SG_Prop id="0x08000001">
+          <RoutingID val="0x1" name="ADSP"/>
+          <Flushable val="0x0" name="False"/>
+        </SG_Prop>
+      </Driver_Prop>
+      <!--Gecko Prop Data-->
+      <Gecko_Prop>
+        <SG_CFG>
+          <Prop id="SG_PROP_ID_PERF_MODE" val="LOW_POWER" />
+          <Prop id="SG_PROP_ID_DIRECTION" val="RX" />
+        </SG_CFG>
+        <CONT_CFG>
+          <!--Can have more than one containers-->
+          <Container name="SPKR_EPC">
+            <!--module list only contains modules in a SG AND a container-->
+            <MOD_LIST>
+              <Module name="MID_SAL" id="0x07001010" iid ="0x4012" />
+              <Module name="MID_DATA_LOGGING" id="0x0700101A" iid ="0x4007">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_DATA_LOGGING" id="0x08001031" hexStr="861500000200000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+              <Module name="MID_CODEC_DMA_SINK" id="0x07001023" iid ="0x4008" />
+            </MOD_LIST>
+          </Container>
+        </CONT_CFG>
+        <Mod_Conn>
+          <!--Connection(s) inside one SG-->
+          <Connection>
+            <SrcMod id="0x07001010" iid ="0x4012" portId="1" />
+            <DstMod id="0x0700101A" iid ="0x4007" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x0700101A" iid ="0x4007" portId="1" />
+            <DstMod id="0x07001023" iid ="0x4008" portId="2" />
+          </Connection>
+        </Mod_Conn>
+      </Gecko_Prop>
+      <!--ModTag node holds all module tag related data for a SG-->
+      <ModTag>
+        <!--Tag node holds data for modules with tagged data-->
+        <Tagged_Mod name="device_hw_ep_rx" >
+          <mod id="0x07001023" iid="0x4008" />
+        </Tagged_Mod>
+        <Tag name="device_hw_ep_rx">
+          <Tag_Indices>
+            <KeyVal key="DeviceRx" val="Speaker" />
+            <KeyVal key="SamplingRate" val="48K" />
+            <KeyVal key="Channels" val="2CH" />
+            <KeyVal key="BitWidth" val="16Bit" />
+          </Tag_Indices>
+          <Tag_Data>
+            <Data iid="0x4008" name="PID_I2S_INTF_CFG" pid="0x08001019" hexStr="0000000001000100" />
+            <Data iid="0x4008" name="PID_HW_EP_MF_CFG" pid="0x08001017" hexStr="80BB00001000020001000000" />
+          </Tag_Data>
+        </Tag>
+      </ModTag>
+    </SG>
+    <SG name="MIC_SG_Device_EP" id="0xB0000003" >
+      <!--Key Vectors-->
+      <KVs>
+        <!--One Key Vector, containing one or more KeyVal pair(s)-->
+        <KV>
+          <KeyVal key="DeviceTx" val="HandsetMic" />
+        </KV>
+      </KVs>
+      <!--Driver Prop Data. All ids and vals should be defined by driver-->
+      <Driver_Prop>
+        <SG_Prop id="0x08000001">
+          <RoutingID val="0x1" name="ADSP"/>
+          <Flushable val="0x0" name="False"/>
+        </SG_Prop>
+      </Driver_Prop>
+      <!--Gecko Prop Data-->
+      <Gecko_Prop>
+        <SG_CFG>
+          <Prop id="SG_PROP_ID_PERF_MODE" val="LOW_POWER" />
+          <Prop id="SG_PROP_ID_DIRECTION" val="TX" />
+        </SG_CFG>
+        <CONT_CFG>
+          <!--Can have more than one containers-->
+          <Container name="MIC_EPC">
+            <!--module list only contains modules in a SG AND a container-->
+            <MOD_LIST>
+              <Module name="MID_CODEC_DMA_SOURCE" id="0x07001024" iid ="0x4009" />
+              <Module name="MID_DATA_LOGGING" id="0x0700101A" iid ="0x400A">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_DATA_LOGGING" id="0x08001031" hexStr="861500000100000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+              <Module name="MID_SPLITTER" id="0x07001011" iid ="0x4011" />
+            </MOD_LIST>
+          </Container>
+        </CONT_CFG>
+        <Mod_Conn>
+          <!--Connection(s) inside one SG-->
+          <Connection>
+            <SrcMod id="0x07001024" iid ="0x4009" portId="1" />
+            <DstMod id="0x0700101A" iid ="0x400A" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x0700101A" iid ="0x400A" portId="1" />
+            <DstMod id="0x07001011" iid ="0x4011" portId="2" />
+          </Connection>
+        </Mod_Conn>
+      </Gecko_Prop>
+      <!--ModTag node holds all module tag related data for a SG-->
+      <ModTag>
+        <!--Tag node holds data for modules with tagged data-->
+        <Tagged_Mod name="device_hw_ep_tx" >
+          <mod id="0x07001024" iid="0x4009" />
+        </Tagged_Mod>
+        <Tag name="device_hw_ep_tx">
+          <Tag_Indices>
+            <KeyVal key="DeviceTx" val="HandsetMic" />
+            <KeyVal key="SamplingRate" val="48K" />
+            <KeyVal key="Channels" val="2CH" />
+            <KeyVal key="BitWidth" val="16Bit" />
+          </Tag_Indices>
+          <Tag_Data>
+            <Data iid="0x4009" name="PID_I2S_INTF_CFG" pid="0x08001019" hexStr="0000000002000100" />
+            <Data iid="0x4009" name="PID_HW_EP_MF_CFG" pid="0x08001017" hexStr="80BB00001000020001000000" />
+          </Tag_Data>
+        </Tag>
+      </ModTag>
+    </SG>
+    <SG name="Record_SG_Stream" id="0xB0000004" >
+      <!--Key Vectors-->
+      <KVs>
+        <!--One Key Vector, containing one or more KeyVal pair(s)-->
+        <KV>
+          <KeyVal key="Stream" val="PCM_Record" />
+        </KV>
+      </KVs>
+      <!--Driver Prop Data. All ids and vals should be defined by driver-->
+      <Driver_Prop>
+        <SG_Prop id="0x08000001">
+          <RoutingID val="0x1" name="ADSP"/>
+          <Flushable val="0x0" name="True"/>
+        </SG_Prop>
+      </Driver_Prop>
+      <!--Gecko Prop Data-->
+      <Gecko_Prop>
+        <SG_CFG>
+          <Prop id="SG_PROP_ID_PERF_MODE" val="LOW_POWER" />
+          <Prop id="SG_PROP_ID_DIRECTION" val="TX" />
+          <Prop id="SG_PROP_ID_SCENARIO_ID" val="AUDIO_RECORD" />
+        </SG_CFG>
+        <CONT_CFG>
+          <!--Can have more than one containers-->
+          <Container name="Record_CDC">
+            <!--module list only contains modules in a SG AND a container-->
+            <MOD_LIST>
+              <Module name="MID_MFC" id="0x07001015" iid ="0x400B">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_MFC_OUTPUT_MEDIA_FORMAT_V2" id="0x08001024" hexStr="FFFFFFFFFFFFFFFF"/>
+		              <PID_Data name="PID_MFC_RESAMPLER_CFG" id="0x0800104D" hexStr="000000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+              <Module name="MID_VOL_CTRL" id="0x0700101B" iid ="0x400C">
+		<KVs>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_0"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="02000000010000000000000000000010020000000000000000000010"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_1"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000F5BE530B0200000000000000F5BE530B"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_2"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000E8DC04080200000000000000E8DC0408"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_3"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000CE50AD050200000000000000CE50AD05"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_4"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="02000000010000000000000062DE0404020000000000000062DE0404"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_5"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="0200000001000000000000001C62D80202000000000000001C62D802"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_6"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000E6A703020200000000000000E6A70302"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_7"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="0200000001000000000000006F0E6D0102000000000000006F0E6D01"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_8"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000AC7002010200000000000000AC700201"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_9"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="0200000001000000000000002BF6B60002000000000000002BF6B600"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_10"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000E28681000200000000000000E2868100"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_11"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000B1B25B000200000000000000B1B25B00"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_12"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000CFEA40000200000000000000CFEA4000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_13"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="02000000010000000000000037F52D00020000000000000037F52D00"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_14"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="02000000010000000000000023892000020000000000000023892000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_15"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="02000000010000000000000094081700020000000000000094081700"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+              <Module name="MID_PCM_CONVERTER" id="0x07001003" iid ="0x400D"/>
+              <Module name="MID_PCM_ENCODER" id="0x07001004" iid ="0x400E"/>
+              <Module name="MID_DATA_LOGGING" id="0x0700101A" iid ="0x400F">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_DATA_LOGGING" id="0x08001031" hexStr="361500000200000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+              <Module name="MID_WR_SHARED_MEM_EP" id="0x07001001" iid ="0x4010" />
+            </MOD_LIST>
+          </Container>
+        </CONT_CFG>
+        <Mod_Conn>
+          <!--Connection(s) inside one SG-->
+          <Connection>
+            <SrcMod id="0x07001015" iid ="0x400B" portId="1" />
+            <DstMod id="0x0700101B" iid ="0x400C" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x0700101B" iid ="0x400C" portId="1" />
+            <DstMod id="0x07001003" iid ="0x400D" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x07001003" iid ="0x400D" portId="1" />
+            <DstMod id="0x07001004" iid ="0x400E" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x07001004" iid ="0x400E" portId="1" />
+            <DstMod id="0x0700101A" iid ="0x400F" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x0700101A" iid ="0x400F" portId="0x1" />
+            <DstMod id="0x07001001" iid ="0x4010" portId="2" />
+          </Connection>
+        </Mod_Conn>
+      </Gecko_Prop>
+      <!--ModTag node holds all module tag related data for a SG-->
+      <ModTag>
+        <Tagged_Mod name="stream_pcm_converter" >
+          <mod id="0x07001003" iid="0x400D" />
+		</Tagged_Mod>
+		<Tagged_Mod name="stream_pcm_encoder" >
+          <mod id="0x07001004" iid="0x400E" />
+        </Tagged_Mod>
+        <Tagged_Mod name="sh_ep" >
+          <mod id="0x07001001" iid="0x4010" />
+        </Tagged_Mod>
+      </ModTag>
+    </SG>
+    <SG name="Loopback_SG_Stream" id="0xB0000006" >
+      <!--Key Vectors-->
+      <KVs>
+        <!--One Key Vector, containing one or more KeyVal pair(s)-->
+        <KV>
+          <KeyVal key="Stream" val="PCM_Loopback"/>
+        </KV>
+      </KVs>
+      <!--Driver Prop Data. All ids and vals should be defined by driver-->
+      <Driver_Prop>
+        <SG_Prop id="0x08000001">
+          <RoutingID val="0x1" name="ADSP"/>
+          <Flushable val="0x0" name="False"/>
+        </SG_Prop>
+      </Driver_Prop>
+      <!--Gecko Prop Data-->
+      <Gecko_Prop>
+        <SG_CFG>
+          <Prop id="SG_PROP_ID_PERF_MODE" val="LOW_POWER" />
+        </SG_CFG>
+        <CONT_CFG>
+          <!--Can have more than one containers-->
+          <Container name="Loopback_PPC">
+            <!--module list only contains modules in a SG AND a container-->
+            <MOD_LIST>
+              <Module name="MID_DATA_LOGGING" id="0x0700101A" iid ="0x4013">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_DATA_LOGGING" id="0x08001031" hexStr="2F1500000100000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+              <Module name="MID_VOL_CTRL" id="0x0700101B" iid ="0x4014">
+                <KVs>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_0"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="02000000010000000000000000000010020000000000000000000010"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_1"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000F5BE530B0200000000000000F5BE530B"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_2"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000E8DC04080200000000000000E8DC0408"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_3"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000CE50AD050200000000000000CE50AD05"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_4"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="02000000010000000000000062DE0404020000000000000062DE0404"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_5"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="0200000001000000000000001C62D80202000000000000001C62D802"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_6"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000E6A703020200000000000000E6A70302"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_7"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="0200000001000000000000006F0E6D0102000000000000006F0E6D01"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_8"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000AC7002010200000000000000AC700201"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_9"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="0200000001000000000000002BF6B60002000000000000002BF6B600"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_10"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000E28681000200000000000000E2868100"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_11"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000B1B25B000200000000000000B1B25B00"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_12"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000CFEA40000200000000000000CFEA4000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_13"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="02000000010000000000000037F52D00020000000000000037F52D00"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_14"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="02000000010000000000000023892000020000000000000023892000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_15"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_COL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_COL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_COL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_COL_MULTICHAN_GAIN" id="0x08001038" hexStr="02000000010000000000000094081700020000000000000094081700"/>
+                      <PID_Data name="PID_COL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+              <Module name="MID_MFC" id="0x07001015" iid ="0x4015">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_MFC_OUTPUT_MEDIA_FORMAT_V2" id="0x08001024" hexStr="FFFFFFFFFFFFFFFF"/>
+		      <PID_Data name="PID_MFC_RESAMPLER_CFG" id="0x0800104D" hexStr="000000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+            </MOD_LIST>
+          </Container>
+        </CONT_CFG>
+        <Mod_Conn>
+          <!--Connection(s) inside one SG-->
+          <Connection>
+            <SrcMod id="0x0700101B" iid ="0x4013" portId="1" />
+            <DstMod id="0x0700101A" iid ="0x4014" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x0700101A" iid ="0x4014" portId="1" />
+            <DstMod id="0x07001015" iid ="0x4015" portId="2" />
+          </Connection>
+        </Mod_Conn>
+      </Gecko_Prop>
+      <!--ModTag node holds all module tag related data for a SG-->
+      <ModTag>
+      </ModTag>
+    </SG>
+    <SG name="VOICE_UI_DEV_PP_SG" id="0xB0000009" >
+      <!--Key Vectors-->
+      <KVs>
+        <!--One Key Vector, containing one or more KeyVal pair(s)-->
+        <KV>
+          <KeyVal key="Stream" val="Voice_UI" />
+          <KeyVal key="DeviceTx" val="HandsetMic" />
+        </KV>
+      </KVs>
+      <!--Driver Prop Data. All ids and vals should be defined by driver-->
+      <Driver_Prop>
+        <SG_Prop id="0x08000001">
+          <RoutingID val="0x1" name="ADSP"/>
+          <Flushable val="0x0" name="False"/>
+        </SG_Prop>
+      </Driver_Prop>
+      <!--Gecko Prop Data-->
+      <Gecko_Prop>
+        <SG_CFG>
+          <Prop id="SG_PROP_ID_PERF_MODE" val="LOW_POWER" />
+          <Prop id="SG_PROP_ID_DIRECTION" val="TX" />
+        </SG_CFG>
+        <CONT_CFG>
+          <!--Can have more than one containers-->
+          <Container name="VOICE_UI_PPC">
+            <!--module list only contains modules in a SG AND a container-->
+            <MOD_LIST>
+              <Module name="MID_MFC" id="0x07001015" iid ="0x4021">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_MFC_OUTPUT_MEDIA_FORMAT_V2" id="0x08001024" hexStr="803E00001000FFFF"/>
+                      <PID_Data name="PID_MFC_RESAMPLER_CFG" id="0x0800104D" hexStr="000000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+              
+            </MOD_LIST>
+          </Container>
+          <Container name="AUDIO_DAM_CDC">
+            <!--module list only contains modules in a SG AND a container-->
+            <MOD_LIST>
+              <Module name="MID_SPLITTER" id="0x07001011" iid ="0x4023" />
+              <Module name="MID_AUDIO_DAM" id="0x07001020" iid ="0x4024" >
+	        <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PARAM_ID_AUDIO_DAM_INPUT_PORTS_CFG" id="0x08001058" hexStr="0100000002000000020000001100000012000000"/>
+                      <PID_Data name="PARAM_ID_AUDIO_DAM_OUTPUT_PORTS_CFG" id="0x08001059" hexStr="01000000020000000200000011000000030000001200000004000000"/>
+		      <PID_Data name="PARAM_ID_AUDIO_DAM_CTRL_TO_DATA_PORT_MAP_CFG" id="0x0800105B" hexStr="010000000100008001000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>				
+            </MOD_LIST>
+          </Container>
+        </CONT_CFG>
+        <Mod_Conn>
+          <!--Connection(s) inside one SG-->
+          <Connection>
+            <SrcMod id="0x07001015" iid ="0x4021" portId="1" />
+            <DstMod id="0x07001011" iid ="0x4023" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x07001011" iid ="0x4023" portId="3" />
+            <DstMod id="0x07001020" iid ="0x4024" portId="2" />
+          </Connection>
+        </Mod_Conn>
+      </Gecko_Prop>
+      <!--ModTag node holds all module tag related data for a SG-->
+      <ModTag>
+        <Tagged_Mod name="device_adam" >
+          <mod id="0x07001020" iid="0x4024" />
+        </Tagged_Mod>
+      </ModTag>
+    </SG>
+    <SG name="VOICE_UI_STREAM_SG" id="0xB000000A" >
+      <!--Key Vectors-->
+      <KVs>
+        <!--One Key Vector, containing one or more KeyVal pair(s)-->
+        <KV>
+          <KeyVal key="Stream" val="Voice_UI" />
+        </KV>
+      </KVs>
+      <!--Driver Prop Data. All ids and vals should be defined by driver-->
+      <Driver_Prop>
+        <SG_Prop id="0x08000001">
+          <RoutingID val="0x1" name="ADSP"/>
+          <Flushable val="0x0" name="True"/>
+        </SG_Prop>
+      </Driver_Prop>
+      <!--Gecko Prop Data-->
+      <Gecko_Prop>
+        <SG_CFG>
+          <Prop id="SG_PROP_ID_PERF_MODE" val="LOW_POWER" />
+          <Prop id="SG_PROP_ID_DIRECTION" val="TX" />
+          <Prop id="SG_PROP_ID_SCENARIO_ID" val="AUDIO_RECORD" />
+        </SG_CFG>
+        <CONT_CFG>
+          <!--Can have more than one containers-->
+          <Container name="SVA_CDC">
+            <!--module list only contains modules in a SG AND a container-->
+            <MOD_LIST>
+              <Module name="MID_SVA" id="0x0700101D" iid ="0x4025" />
+            </MOD_LIST>
+          </Container>
+          <Container name="VOICE_UI_CDC">
+            <!--module list only contains modules in a SG AND a container-->
+            <MOD_LIST>
+              <Module name="MID_PCM_CONVERTER" id="0x07001003" iid ="0x4026"/>
+              <Module name="MID_PCM_ENCODER" id="0x07001004" iid ="0x4027"/>
+              <Module name="MID_DATA_LOGGING" id="0x0700101A" iid ="0x4028">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_DATA_LOGGING" id="0x08001031" hexStr="361500000200000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+              <Module name="MID_WR_SHARED_MEM_EP" id="0x07001001" iid ="0x4020" />
+            </MOD_LIST>
+          </Container>
+        </CONT_CFG>
+        <Mod_Conn>
+          <!--Connection(s) inside one SG-->
+          <Connection>
+            <SrcMod id="0x07001003" iid ="0x4026" portId="1" />
+            <DstMod id="0x07001004" iid ="0x4027" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x07001004" iid ="0x4027" portId="1" />
+            <DstMod id="0x0700101A" iid ="0x4028" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x0700101A" iid ="0x4028" portId="1" />
+            <DstMod id="0x07001001" iid ="0x4020" portId="2" />
+          </Connection>
+        </Mod_Conn>
+      </Gecko_Prop>
+      <!--ModTag node holds all module tag related data for a SG-->
+      <ModTag>
+        <Tagged_Mod name="device_sva" >
+          <mod id="0x0700101D" iid="0x4025" />
+        </Tagged_Mod>
+	    <Tagged_Mod name="stream_pcm_converter" >
+          <mod id="0x07001003" iid="0x4026" />
+        </Tagged_Mod>
+		<Tagged_Mod name="stream_pcm_encoder" >
+          <mod id="0x07001004" iid="0x4027" />
+        </Tagged_Mod>
+        <Tagged_Mod name="sh_ep" >
+          <mod id="0x07001001" iid="0x4020" />
+        </Tagged_Mod>
+      </ModTag>
+    </SG>
+   <SG name="Voip_Rx_SG_Stream" id="0xB000000E" >
+      <!--Key Vectors-->
+      <KVs>
+        <!--One Key Vector, containing one or more KeyVal pair(s)-->
+        <KV>
+          <KeyVal key="Stream" val="Voip_Rx" />
+        </KV>
+      </KVs>
+      <!--Driver Prop Data. All ids and vals should be defined by driver-->
+      <Driver_Prop>
+        <SG_Prop id="0x08000001">
+          <RoutingID val="0x1" name="ADSP"/>
+          <Flushable val="0x1" name="True"/>
+        </SG_Prop>
+      </Driver_Prop>
+      <!--Gecko Prop Data-->
+      <Gecko_Prop>
+        <SG_CFG>
+          <Prop id="SG_PROP_ID_PERF_MODE" val="LOW_POWER" />
+          <Prop id="SG_PROP_ID_DIRECTION" val="RX" />
+          <Prop id="SG_PROP_ID_SCENARIO_ID" val="AUDIO_PLAYBACK" />
+        </SG_CFG>
+        <CONT_CFG>
+          <!--Can have more than one containers-->
+          <Container name="VOIP_RX_STREAM_CDC">
+            <!--module list only contains modules in a SG AND a container-->
+            <MOD_LIST>
+              <Module name="MID_WR_SHARED_MEM_EP" id="0x07001000" iid ="0x4038" />
+              <Module name="MID_DATA_LOGGING" id="0x0700101A" iid ="0x4039">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_DATA_LOGGING" id="0x08001031" hexStr="2E1500000100000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+              <Module name="MID_PCM_DECODER" id="0x07001005" iid ="0x403A"/>
+              <Module name="MID_PCM_CONVERTER" id="0x07001003" iid ="0x403B"/>
+              <Module name="MID_DATA_LOGGING" id="0x0700101A" iid ="0x403C">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_DATA_LOGGING" id="0x08001031" hexStr="AF1900000100000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+            </MOD_LIST>
+          </Container>
+          <Container name="VOIP_RX_STREAM_PPC">
+            <!--module list only contains modules in a SG AND a container-->
+            <MOD_LIST>
+              <Module name="MID_DATA_LOGGING" id="0x0700101A" iid ="0x403D">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_DATA_LOGGING" id="0x08001031" hexStr="2F1500000100000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+              <Module name="MID_VOL_CTRL" id="0x0700101B" iid ="0x403E">
+                <KVs>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_0"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="02000000010000000000000000000010020000000000000000000010"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_1"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000F5BE530B0200000000000000F5BE530B"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_2"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000E8DC04080200000000000000E8DC0408"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_3"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000CE50AD050200000000000000CE50AD05"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_4"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="02000000010000000000000062DE0404020000000000000062DE0404"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_5"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="0200000001000000000000001C62D80202000000000000001C62D802"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_6"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000E6A703020200000000000000E6A70302"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_7"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="0200000001000000000000006F0E6D0102000000000000006F0E6D01"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_8"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000AC7002010200000000000000AC700201"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_9"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="0200000001000000000000002BF6B60002000000000000002BF6B600"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_10"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000E28681000200000000000000E2868100"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_11"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000B1B25B000200000000000000B1B25B00"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_12"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000CFEA40000200000000000000CFEA4000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_13"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="02000000010000000000000037F52D00020000000000000037F52D00"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_14"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="02000000010000000000000023892000020000000000000023892000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_15"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="02000000010000000000000094081700020000000000000094081700"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+              <Module name="MID_SOFT_PAUSE" id="0x07001019" iid ="0x403F">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_SOFT_VOL_STEPPING_PARAM" id="0x0800102D" hexStr="28000000E80300000100000028000000E803000001000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+              <Module name="MID_MFC" id="0x07001015" iid ="0x4040">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_MFC_OUTPUT_MEDIA_FORMAT_V2" id="0x08001024" hexStr="FFFFFFFFFFFFFFFF"/>
+                      <PID_Data name="PID_MFC_RESAMPLER_CFG" id="0x0800104D" hexStr="000000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+              <Module name="MID_DATA_LOGGING" id="0x0700101A" iid ="0x4041">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_DATA_LOGGING" id="0x08001031" hexStr="B11900000100000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+            </MOD_LIST>
+          </Container>
+        </CONT_CFG>
+        <Mod_Conn>
+          <!--Connection(s) inside one SG-->
+          <Connection>
+            <SrcMod id="0x07001000" iid ="0x4038" portId="1" />
+            <DstMod id="0x0700101A" iid ="0x4039" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x0700101A" iid ="0x4039" portId="1" />
+            <DstMod id="0x07001005" iid ="0x403A" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x07001005" iid ="0x403A" portId="1" />
+            <DstMod id="0x07001003" iid ="0x403B" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x07001003" iid ="0x403B" portId="1" />
+            <DstMod id="0x0700101A" iid ="0x403C" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x0700101A" iid ="0x403C" portId="1" />
+            <DstMod id="0x0700101A" iid ="0x403D" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x0700101A" iid ="0x403D" portId="1" />
+            <DstMod id="0x0700101B" iid ="0x403E" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x0700101B" iid ="0x403E" portId="1" />
+            <DstMod id="0x07001019" iid ="0x403F" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x07001019" iid ="0x403F" portId="1" />
+            <DstMod id="0x07001015" iid ="0x4040" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x07001015" iid ="0x4040" portId="1" />
+            <DstMod id="0x0700101A" iid ="0x4041" portId="2" />
+          </Connection>
+        </Mod_Conn>
+      </Gecko_Prop>
+      <!--ModTag node holds all module tag related data for a SG-->
+      <ModTag>
+        <Tagged_Mod name="sh_ep" >
+          <mod id="0x07001000" iid="0x4038" />
+        </Tagged_Mod>
+        <Tagged_Mod name="stream_input_media_format" >
+          <mod id="0x07001000" iid="0x4038" />
+        </Tagged_Mod>
+        <Tagged_Mod name="stream_pcm_converter" >
+          <mod id="0x07001005" iid="0x403A" />
+		</Tagged_Mod>
+		<Tagged_Mod name="stream_pcm_encoder" >
+          <mod id="0x07001003" iid="0x403B" />
+        </Tagged_Mod>
+        <Tagged_Mod name="pause" >
+          <mod id="0x07001019" iid="0x403F" />
+        </Tagged_Mod>
+        <Tag name="pause">
+          <Tag_Indices>
+            <KeyVal key="Pause" val="On" />
+          </Tag_Indices>
+          <Tag_Data>
+            <Data iid="0x403F" name="PARAM_ID_SOFT_PAUSE_START" pid="0x0800102E" hexStr="" />
+          </Tag_Data>
+        </Tag>
+        <Tag name="pause">
+          <Tag_Indices>
+            <KeyVal key="Pause" val="Off" />
+          </Tag_Indices>
+          <Tag_Data>
+            <Data iid="0x403F" name="PARAM_ID_SOFT_PAUSE_RESUME" pid="0x0800102F" hexStr="" />
+          </Tag_Data>
+        </Tag>
+      </ModTag>
+    </SG>
+   <SG name="Voip_Rx_SG_Stream_Device_PP" id="0xB000000F" >
+      <!--Key Vectors-->
+      <KVs>
+        <!--One Key Vector, containing one or more KeyVal pair(s)-->
+        <KV>
+          <KeyVal key="Stream" val="Voip_Rx" />
+          <KeyVal key="DeviceRx" val="Speaker" />
+        </KV>
+      </KVs>
+      <!--Driver Prop Data. All ids and vals should be defined by driver-->
+      <Driver_Prop>
+        <SG_Prop id="0x08000001">
+          <RoutingID val="0x1" name="ADSP"/>
+          <Flushable val="0x0" name="False"/>
+        </SG_Prop>
+      </Driver_Prop>
+      <!--Gecko Prop Data-->
+      <Gecko_Prop>
+        <SG_CFG>
+          <Prop id="SG_PROP_ID_PERF_MODE" val="LOW_POWER" />
+          <Prop id="SG_PROP_ID_DIRECTION" val="RX" />
+        </SG_CFG>
+        <CONT_CFG>
+          <!--Can have more than one containers-->
+          <Container name="VOIP_RX_DEVICE_PPC">
+            <!--module list only contains modules in a SG AND a container-->
+            <MOD_LIST>
+              <Module name="MID_DATA_LOGGING" id="0x0700101A" iid ="0x4042">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_DATA_LOGGING" id="0x08001031" hexStr="311500000200000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+              <Module name="MID_MFC" id="0x07001015" iid ="0x4043">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_MFC_OUTPUT_MEDIA_FORMAT_V2" id="0x08001024" hexStr="80BB00001000020001000200"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+              <Module name="MID_MS_MBDRC" id="0x07001017" iid ="0x4044" >
+              <KVs>
+                <KV>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+               </KVs>
+              </Module>
+              <Module name="MID_MS_IIR" id="0x07001014" iid ="0x4045" >
+              <KVs>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_0"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_1"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_2"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_3"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_4"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_5"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_6"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_7"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_8"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_9"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_10"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_11"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_12"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_13"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_14"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_15"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+              </KVs>
+              </Module>
+              <Module name="MID_MS_MBDRC" id="0x07001017" iid ="0x4046" >
+			  <KVs>
+                <KV>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+               </KVs>
+              </Module>
+              <Module name="MID_DATA_LOGGING" id="0x0700101A" iid ="0x4047">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_DATA_LOGGING" id="0x08001031" hexStr="B01900000100000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+              <Module name="MID_MFC" id="0x07001015" iid ="0x4048">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_MFC_OUTPUT_MEDIA_FORMAT_V2" id="0x08001024" hexStr="80BB00001000020001000200"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+            </MOD_LIST>
+          </Container>
+        </CONT_CFG>
+        <Mod_Conn>
+          <!--Connection(s) inside one SG-->
+          <Connection>
+            <SrcMod id="0x0700101A" iid ="0x4042" portId="1" />
+            <DstMod id="0x07001015" iid ="0x4043" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x07001015" iid ="0x4043" portId="1" />
+            <DstMod id="0x07001014" iid ="0x4044" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x07001014" iid ="0x4044" portId="1" />
+            <DstMod id="0x07001017" iid ="0x4045" portId="2" />
+          </Connection>          
+          <Connection>
+            <SrcMod id="0x07001017" iid ="0x4045" portId="1" />
+            <DstMod id="0x0700101A" iid ="0x4046" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x0700101A" iid ="0x4046" portId="1" />
+            <DstMod id="0x07001015" iid ="0x4047" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x0700101A" iid ="0x4047" portId="1" />
+            <DstMod id="0x07001015" iid ="0x4048" portId="2" />
+          </Connection>
+        </Mod_Conn>
+      </Gecko_Prop>
+      <!--ModTag node holds all module tag related data for a SG-->
+      <ModTag>
+      </ModTag>
+    </SG>
+    <SG name="Voip_Tx_SG_Stream" id="0xB000000C" >
+      <!--Key Vectors-->
+      <KVs>
+        <!--One Key Vector, containing one or more KeyVal pair(s)-->
+        <KV>
+          <KeyVal key="Stream" val="Voip_Tx" />
+        </KV>
+      </KVs>
+      <!--Driver Prop Data. All ids and vals should be defined by driver-->
+      <Driver_Prop>
+        <SG_Prop id="0x08000001">
+          <RoutingID val="0x1" name="ADSP"/>
+          <Flushable val="0x0" name="True"/>
+        </SG_Prop>
+      </Driver_Prop>
+      <!--Gecko Prop Data-->
+      <Gecko_Prop>
+        <SG_CFG>
+          <Prop id="SG_PROP_ID_PERF_MODE" val="LOW_POWER" />
+          <Prop id="SG_PROP_ID_DIRECTION" val="TX" />
+          <Prop id="SG_PROP_ID_SCENARIO_ID" val="AUDIO_RECORD" />
+        </SG_CFG>
+        <CONT_CFG>
+          <!--Can have more than one containers-->
+          <!-- <Container name="VOIP_TX_STREAM_PPC"> -->
+            <!--module list only contains modules in a SG AND a container-->
+            <!-- <MOD_LIST> -->
+            <!-- </MOD_LIST> -->
+          <!-- </Container> -->
+          <Container name="VOIP_TX_STREAM_CDC">
+            <!--module list only contains modules in a SG AND a container-->
+            <MOD_LIST>
+             <Module name="MID_MFC" id="0x07001015" iid ="0x402F">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_MFC_OUTPUT_MEDIA_FORMAT_V2" id="0x08001024" hexStr="80BB00001000020001000200"/>
+                      <PID_Data name="PID_MFC_RESAMPLER_CFG" id="0x0800104D" hexStr="000000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+              <Module name="MID_VOL_CTRL" id="0x0700101B" iid ="0x402E">
+                <KVs>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_0"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="02000000010000000000000000000010020000000000000000000010"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_1"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000F5BE530B0200000000000000F5BE530B"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_2"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000E8DC04080200000000000000E8DC0408"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_3"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000CE50AD050200000000000000CE50AD05"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_4"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="02000000010000000000000062DE0404020000000000000062DE0404"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_5"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="0200000001000000000000001C62D80202000000000000001C62D802"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_6"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000E6A703020200000000000000E6A70302"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_7"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="0200000001000000000000006F0E6D0102000000000000006F0E6D01"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_8"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000AC7002010200000000000000AC700201"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_9"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="0200000001000000000000002BF6B60002000000000000002BF6B600"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_10"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000E28681000200000000000000E2868100"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_11"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000B1B25B000200000000000000B1B25B00"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_12"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="020000000100000000000000CFEA40000200000000000000CFEA4000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_13"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="02000000010000000000000037F52D00020000000000000037F52D00"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_14"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="02000000010000000000000023892000020000000000000023892000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                  <KV>
+                    <KeyVal key ="Volume" val ="Level_15"> </KeyVal>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_GAIN" id="0x08001035" hexStr="00200000"/>
+                      <PID_Data name="PID_VOL_CTRL_MASTER_MUTE" id="0x08001036" hexStr="00000000"/>
+                      <PID_Data name="PID_VOL_CTRL_GAIN_RAMP" id="0x08001037" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_CTRL_MUTE_RAMP" id="0x0800103D" hexStr="28000000E803000001000000"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_GAIN" id="0x08001038" hexStr="02000000010000000000000094081700020000000000000094081700"/>
+                      <PID_Data name="PID_VOL_MULTICHAN_MUTE" id="0x08001039" hexStr="02000000010000000000000000000000020000000000000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+             <Module name="MID_DATA_LOGGING" id="0x0700101A" iid ="0x402D">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_DATA_LOGGING" id="0x08001031" hexStr="B11900000100000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+              <Module name="MID_PCM_CONVERTER" id="0x07001003" iid ="0x402C"/>
+              <Module name="MID_PCM_ENCODER" id="0x07001004" iid ="0x402B"/>
+              <Module name="MID_DATA_LOGGING" id="0x0700101A" iid ="0x402A">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_DATA_LOGGING" id="0x08001031" hexStr="361500000200000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+              <Module name="MID_RD_SHARED_MEM_EP" id="0x07001001" iid ="0x4029" />
+            </MOD_LIST>
+          </Container>
+        </CONT_CFG>
+        <Mod_Conn>
+          <!--Connection(s) inside one SG-->
+          <Connection>
+            <SrcMod id="0x07001015" iid ="0x402F" portId="1" />
+            <DstMod id="0x0700101B" iid ="0x402E" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x0700101B" iid ="0x402E" portId="1" />
+            <DstMod id="0x07001003" iid ="0x402D" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x07001003" iid ="0x402D" portId="1" />
+            <DstMod id="0x07001004" iid ="0x402C" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x07001004" iid ="0x402C" portId="1" />
+            <DstMod id="0x0700101A" iid ="0x402B" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x0700101A" iid ="0x402B" portId="1" />
+            <DstMod id="0x07001001" iid ="0x402A" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x0700101A" iid ="0x402A" portId="1" />
+            <DstMod id="0x07001001" iid ="0x4029" portId="2" />
+          </Connection>
+        </Mod_Conn>
+      </Gecko_Prop>
+      <!--ModTag node holds all module tag related data for a SG-->
+      <ModTag>
+        <Tagged_Mod name="stream_pcm_converter" >
+          <mod id="0x07001003" iid="0x402C" />
+		</Tagged_Mod>
+        <Tagged_Mod name="stream_pcm_converter" > 
+          <mod id="0x07001004" iid="0x402B" />
+        </Tagged_Mod>
+        <Tagged_Mod name="sh_ep" >
+          <mod id="0x07001001" iid="0x4029" />
+        </Tagged_Mod>
+      </ModTag>
+    </SG>
+    <SG name="Voip_Tx_SG_Stream_Device_PP" id="0xB000000D" >
+      <!--Key Vectors-->
+      <KVs>
+        <!--One Key Vector, containing one or more KeyVal pair(s)-->
+        <KV>
+          <KeyVal key="Stream" val="Voip_Tx" />
+          <KeyVal key="DeviceTx" val="HandsetMic" />
+        </KV>
+      </KVs>
+      <!--Driver Prop Data. All ids and vals should be defined by driver-->
+      <Driver_Prop>
+        <SG_Prop id="0x08000001">
+          <RoutingID val="0x1" name="ADSP"/>
+          <Flushable val="0x0" name="False"/>
+        </SG_Prop>
+      </Driver_Prop>
+      <!--Gecko Prop Data-->
+      <Gecko_Prop>
+        <SG_CFG>
+          <Prop id="SG_PROP_ID_PERF_MODE" val="LOW_POWER" />
+          <Prop id="SG_PROP_ID_DIRECTION" val="TX" />
+        </SG_CFG>
+        <CONT_CFG>
+          <!--Can have more than one containers-->
+          <Container name="VOIP_TX_DEVICE_PPC">
+            <!--module list only contains modules in a SG AND a container-->
+            <MOD_LIST>
+              <Module name="MID_DATA_LOGGING" id="0x0700101A" iid ="0x4037">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_DATA_LOGGING" id="0x08001031" hexStr="311500000200000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+              <Module name="MID_MS_IIR" id="0x07001014" iid ="0x4036" >
+              <KVs>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_0"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_1"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_2"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_3"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_4"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_5"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_6"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_7"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_8"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_9"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_10"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_11"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_12"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_13"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_14"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_15"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+              </KVs>
+              </Module>              
+              <Module name="MID_GAIN" id="0x07001002" iid ="0x4035" >
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+              <Module name="MID_MS_IIR" id="0x07001014" iid ="0x4034" >
+              <KVs>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_0"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_1"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_2"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_3"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_4"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_5"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_6"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_7"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_8"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_9"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_10"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_11"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_12"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_13"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_14"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_15"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+              </KVs>
+              </Module>
+              <Module name="MID_FIR" id="0x07001022" iid ="0x4033" >
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>              
+              <Module name="MID_MS_IIR" id="0x07001014" iid ="0x4032" >
+              <KVs>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_0"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_1"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_2"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_3"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_4"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_5"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_6"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_7"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_8"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_9"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_10"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_11"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_12"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_13"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_14"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_15"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="00000000"/>
+                  </CalData>
+                </KV>
+              </KVs>
+              </Module>
+              <Module name="MID_MS_MBDRC" id="0x07001017" iid ="0x4031" >
+              <KVs>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_0"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_1"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_2"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_3"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_4"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_5"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_6"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_7"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_8"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_9"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_10"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_11"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_12"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_13"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_14"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+                <KV>
+                  <KeyVal key ="Volume" val ="Level_15"> </KeyVal>
+                  <CalData>
+                    <PID_Data name="PID_VOL_CTRL_MODULE_ENABLE" id="0x08001026" hexStr="01000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_CONFIG_PARAMS" id="0x08001028" hexStr="010000000100000006010000440B00000100000000000000FEFFFFFFFFFFFFFF0080990500010000B87E000052000000972C360B43D1F0010080000000800000008099050100000001002A010010250F9AFFA749736BEF00F8455302000000FD250F0000E8ED7700E8ED7700A749A52533F3A74994BB9B046405180000000000"/>
+                    <PID_Data name="PID_MBDRC_FILTER_XOVER_FREQS" id="0x08001029" hexStr="010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+                  </CalData>
+                </KV>
+              </KVs>
+              </Module>
+              <Module name="MID_DATA_LOGGING" id="0x0700101A" iid ="0x4030">
+                <KVs>
+                  <KV>
+                    <CalData>
+                      <PID_Data name="PID_DATA_LOGGING" id="0x08001031" hexStr="B01900000100000000000000"/>
+                    </CalData>
+                  </KV>
+                </KVs>
+              </Module>
+            </MOD_LIST>
+          </Container>
+        </CONT_CFG>
+        <Mod_Conn>
+          <!--Connection(s) inside one SG-->
+          <Connection>
+            <SrcMod id="0x0700101A" iid ="0x4037" portId="1" />
+            <DstMod id="0x07001014" iid ="0x4036" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x07001014" iid ="0x4036" portId="1" />
+            <DstMod id="0x07001002" iid ="0x4035" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x07001002" iid ="0x4035" portId="1" />
+            <DstMod id="0x07001014" iid ="0x4034" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x07001014" iid ="0x4034" portId="1" />
+            <DstMod id="0x07001022" iid ="0x4033" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x07001022" iid ="0x4033" portId="1" />
+            <DstMod id="0x07001014" iid ="0x4032" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x07001014" iid ="0x4032" portId="1" />
+            <DstMod id="0x07001017" iid ="0x4031" portId="2" />
+          </Connection>
+          <Connection>
+            <SrcMod id="0x07001017" iid ="0x4031" portId="1" />
+            <DstMod id="0x0700101A" iid ="0x4030" portId="2" />
+          </Connection>      
+        </Mod_Conn>
+      </Gecko_Prop>
+      <!--ModTag node holds all module tag related data for a SG-->
+      <ModTag>
+      </ModTag>
+    </SG>
+  </SG_LIST>
+  <!--All Containters. Here each container only contains CFG data. All other data are in a SG-->
+  <CONTAINER_LIST>
+    <Container name="Playback_CDC" id="0xE0000001" >
+      <!--CFGData can be key vector dependent-->
+      <ContCfgData mid="APM_MODULE_ID" pid="PARAM_ID_CONTAINER_CFG" >
+        <Prop id="CONT_PROP_ID_CAPABILITY_LIST" >
+          <Value val="CD" />
+        </Prop>
+        <Prop id="CONT_PROP_ID_GRAPH_POS" val="STREAM" />
+        <Prop id="CONT_PROP_ID_STACK_SIZE" val="4096" />
+        <Prop id="CONT_PROP_ID_PROC_DOMAIN" val="ADSP" />
+      </ContCfgData>
+    </Container>
+    <Container name="Playback_PPC" id="0xE0000008" >
+      <!--CFGData can be key vector dependent-->
+      <ContCfgData mid="APM_MODULE_ID" pid="PARAM_ID_CONTAINER_CFG" >
+        <Prop id="CONT_PROP_ID_CAPABILITY_LIST" >
+          <Value val="PP" />
+        </Prop>
+        <Prop id="CONT_PROP_ID_GRAPH_POS" val="STREAM" />
+        <Prop id="CONT_PROP_ID_STACK_SIZE" val="8192" />
+        <Prop id="CONT_PROP_ID_PROC_DOMAIN" val="ADSP" />
+      </ContCfgData>
+    </Container>
+    <Container name="Playback_Stream_Device_PPC" id="0xE0000009" >
+      <!--CFGData can be key vector dependent-->
+      <ContCfgData mid="APM_MODULE_ID" pid="PARAM_ID_CONTAINER_CFG" >
+        <Prop id="CONT_PROP_ID_CAPABILITY_LIST" >
+          <Value val="PP" />
+        </Prop>
+        <Prop id="CONT_PROP_ID_GRAPH_POS" val="PER_STR_PER_DEV" />
+        <Prop id="CONT_PROP_ID_STACK_SIZE" val="8192" />
+        <Prop id="CONT_PROP_ID_PROC_DOMAIN" val="ADSP" />
+      </ContCfgData>
+    </Container>
+    <Container name="SPKR_EPC" id="0xE0000002" >
+      <!--CFGData can be key vector dependent-->
+      <ContCfgData mid="APM_MODULE_ID" pid="PARAM_ID_CONTAINER_CFG" >
+        <Prop id="CONT_PROP_ID_CAPABILITY_LIST" >
+          <Value val="EP" />
+        </Prop>
+        <Prop id="CONT_PROP_ID_GRAPH_POS" val="GLOBAL_DEV" />
+        <Prop id="CONT_PROP_ID_STACK_SIZE" val="8192" />
+        <Prop id="CONT_PROP_ID_PROC_DOMAIN" val="ADSP" />
+      </ContCfgData>
+    </Container>
+    <Container name="Record_CDC" id="0xE0000004" >
+      <!--CFGData can be key vector dependent-->
+      <ContCfgData mid="APM_MODULE_ID" pid="PARAM_ID_CONTAINER_CFG" >
+        <Prop id="CONT_PROP_ID_CAPABILITY_LIST" >
+          <Value val="CD" />
+        </Prop>
+        <Prop id="CONT_PROP_ID_GRAPH_POS" val="STREAM" />
+        <Prop id="CONT_PROP_ID_STACK_SIZE" val="8192" />
+        <Prop id="CONT_PROP_ID_PROC_DOMAIN" val="ADSP" />
+      </ContCfgData>
+    </Container>
+    <Container name="MIC_EPC" id="0xE0000003" >
+      <!--CFGData can be key vector dependent-->
+      <ContCfgData mid="APM_MODULE_ID" pid="PARAM_ID_CONTAINER_CFG" >
+        <Prop id="CONT_PROP_ID_CAPABILITY_LIST" >
+          <Value val="EP" />
+        </Prop>
+        <Prop id="CONT_PROP_ID_GRAPH_POS" val="GLOBAL_DEV" />
+        <Prop id="CONT_PROP_ID_STACK_SIZE" val="8192" />
+        <Prop id="CONT_PROP_ID_PROC_DOMAIN" val="ADSP" />
+      </ContCfgData>
+    </Container>
+    <Container name="Loopback_PPC" id="0xE0000006" >
+      <!--CFGData can be key vector dependent-->
+      <ContCfgData mid="APM_MODULE_ID" pid="PARAM_ID_CONTAINER_CFG" >
+        <Prop id="CONT_PROP_ID_CAPABILITY_LIST" >
+          <Value val="PP" />
+        </Prop>
+        <Prop id="CONT_PROP_ID_GRAPH_POS" val="STREAM" />
+        <Prop id="CONT_PROP_ID_STACK_SIZE" val="8192" />
+        <Prop id="CONT_PROP_ID_PROC_DOMAIN" val="ADSP" />
+      </ContCfgData>
+    </Container>
+    <Container name="VOICE_UI_PPC" id="0xE000000A" >
+      <!--CFGData can be key vector dependent-->
+      <ContCfgData mid="APM_MODULE_ID" pid="PARAM_ID_CONTAINER_CFG" >
+        <Prop id="CONT_PROP_ID_CAPABILITY_LIST" >
+          <Value val="PP" />
+        </Prop>
+        <Prop id="CONT_PROP_ID_GRAPH_POS" val="STR_DEV" />
+        <Prop id="CONT_PROP_ID_STACK_SIZE" val="8192" />
+        <Prop id="CONT_PROP_ID_PROC_DOMAIN" val="ADSP" />
+      </ContCfgData>
+    </Container>
+    <Container name="AUDIO_DAM_CDC" id="0xE000000B" >
+      <!--CFGData can be key vector dependent-->
+      <ContCfgData mid="APM_MODULE_ID" pid="PARAM_ID_CONTAINER_CFG" >
+        <Prop id="CONT_PROP_ID_CAPABILITY_LIST" >
+          <Value val="CD" />
+        </Prop>
+        <Prop id="CONT_PROP_ID_GRAPH_POS" val="STREAM" />
+        <Prop id="CONT_PROP_ID_STACK_SIZE" val="8192" />
+        <Prop id="CONT_PROP_ID_PROC_DOMAIN" val="ADSP" />
+      </ContCfgData>
+    </Container>
+    <Container name="SVA_CDC" id="0xE000000C" >
+      <!--CFGData can be key vector dependent-->
+      <ContCfgData mid="APM_MODULE_ID" pid="PARAM_ID_CONTAINER_CFG" >
+        <Prop id="CONT_PROP_ID_CAPABILITY_LIST" >
+          <Value val="CD" />
+        </Prop>
+        <Prop id="CONT_PROP_ID_GRAPH_POS" val="STREAM" />
+        <Prop id="CONT_PROP_ID_STACK_SIZE" val="8192" />
+        <Prop id="CONT_PROP_ID_PROC_DOMAIN" val="ADSP" />
+      </ContCfgData>
+    </Container>
+    <Container name="VOICE_UI_CDC" id="0xE000000D" >
+      <!--CFGData can be key vector dependent-->
+      <ContCfgData mid="APM_MODULE_ID" pid="PARAM_ID_CONTAINER_CFG" >
+        <Prop id="CONT_PROP_ID_CAPABILITY_LIST" >
+          <Value val="CD" />
+        </Prop>
+        <Prop id="CONT_PROP_ID_GRAPH_POS" val="STREAM" />
+        <Prop id="CONT_PROP_ID_STACK_SIZE" val="8192" />
+        <Prop id="CONT_PROP_ID_PROC_DOMAIN" val="ADSP" />
+      </ContCfgData>
+    </Container>
+    <Container name="VOIP_TX_STREAM_CDC" id="0xE0000010" >
+      <ContCfgData mid="APM_MODULE_ID" pid="PARAM_ID_CONTAINER_CFG" >
+        <Prop id="CONT_PROP_ID_CAPABILITY_LIST" >
+          <Value val="CD" />
+        </Prop>
+        <Prop id="CONT_PROP_ID_GRAPH_POS" val="STREAM" />
+        <Prop id="CONT_PROP_ID_STACK_SIZE" val="8192" />
+        <Prop id="CONT_PROP_ID_PROC_DOMAIN" val="ADSP" />
+      </ContCfgData>
+    </Container>
+    <Container name="VOIP_TX_DEVICE_PPC" id="0xE0000012" >
+      <!--CFGData can be key vector dependent-->
+      <ContCfgData mid="APM_MODULE_ID" pid="PARAM_ID_CONTAINER_CFG" >
+        <Prop id="CONT_PROP_ID_CAPABILITY_LIST" >
+          <Value val="PP" />
+        </Prop>
+        <Prop id="CONT_PROP_ID_GRAPH_POS" val="STR_DEV" />
+        <Prop id="CONT_PROP_ID_STACK_SIZE" val="8192" />
+        <Prop id="CONT_PROP_ID_PROC_DOMAIN" val="ADSP" />
+      </ContCfgData>
+    </Container>
+    <Container name="VOIP_RX_STREAM_CDC" id="0xE0000005" >
+      <!--CFGData can be key vector dependent-->
+      <ContCfgData mid="APM_MODULE_ID" pid="PARAM_ID_CONTAINER_CFG" >
+        <Prop id="CONT_PROP_ID_CAPABILITY_LIST" >
+          <Value val="CD" />
+        </Prop>
+        <Prop id="CONT_PROP_ID_GRAPH_POS" val="STREAM" />
+        <Prop id="CONT_PROP_ID_STACK_SIZE" val="8192" />
+        <Prop id="CONT_PROP_ID_PROC_DOMAIN" val="ADSP" />
+      </ContCfgData>
+    </Container>
+    <Container name="VOIP_RX_STREAM_PPC" id="0xE0000007" >
+      <!--CFGData can be key vector dependent-->
+      <ContCfgData mid="APM_MODULE_ID" pid="PARAM_ID_CONTAINER_CFG" >
+        <Prop id="CONT_PROP_ID_CAPABILITY_LIST" >
+          <Value val="PP" />
+        </Prop>
+        <Prop id="CONT_PROP_ID_GRAPH_POS" val="STREAM" />
+        <Prop id="CONT_PROP_ID_STACK_SIZE" val="8192" />
+        <Prop id="CONT_PROP_ID_PROC_DOMAIN" val="ADSP" />
+      </ContCfgData>
+    </Container>
+    <Container name="VOIP_RX_DEVICE_PPC" id="0xE000000E" >
+      <!--CFGData can be key vector dependent-->
+      <ContCfgData mid="APM_MODULE_ID" pid="PARAM_ID_CONTAINER_CFG" >
+        <Prop id="CONT_PROP_ID_CAPABILITY_LIST" >
+          <Value val="PP" />
+        </Prop>
+        <Prop id="CONT_PROP_ID_GRAPH_POS" val="STR_DEV" />
+        <Prop id="CONT_PROP_ID_STACK_SIZE" val="16384" />
+        <Prop id="CONT_PROP_ID_PROC_DOMAIN" val="ADSP" />
+      </ContCfgData>
+    </Container>
+  </CONTAINER_LIST>
+  <!--Driver calibration data-->
+  <DRIVER_DATA></DRIVER_DATA>
+  <MODULE_DEF>
+    <Module id="0x07001000" ipMax="0" opMax="1" />
+    <Module id="0x0700101A" ipMax="1" opMax="1" />
+    <Module id="0x07001005" ipMax="1" opMax="1" />
+    <Module id="0x07001003" ipMax="1" opMax="1" />
+    <Module id="0x0700101B" ipMax="1" opMax="1" />
+    <Module id="0x07001019" ipMax="1" opMax="1" />
+    <Module id="0x07001015" ipMax="1" opMax="1" />
+    <Module id="0x07001014" ipMax="1" opMax="1" />
+    <Module id="0x07001017" ipMax="1" opMax="1" />
+    <Module id="0x07001010" ipMax="3" opMax="1" />
+    <Module id="0x07001023" ipMax="1" opMax="0" />
+    <Module id="0x07001024" ipMax="0" opMax="1" />
+    <Module id="0x07001011" ipMax="1" opMax="4" />
+    <Module id="0x07001004" ipMax="1" opMax="1" />
+    <Module id="0x07001001" ipMax="1" opMax="0" />
+    <Module id="0x07001020" ipMax="1" opMax="1" />
+    <Module id="0x0700101D" ipMax="1" opMax="0" />
+    <Module id="0x07001002" ipMax="1" opMax="1" />
+    <Module id="0x07001022" ipMax="1" opMax="1" />
+  </MODULE_DEF>
+</ACDB_DATA>
