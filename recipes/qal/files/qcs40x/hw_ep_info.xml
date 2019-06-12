@@ -36,6 +36,10 @@
 	<tdm>
 		<tdm_hw_intf name="tdm-pri" lpaif_type="LPAIF_AXI" sync_src="TDM_SYNC_SRC_INTERNAL" ctrl_data="TDM_CTRL_DATA_OE_DISABLE" sync_mode="TDM_LONG_SYNC_MODE" ctrl_invert_sync_pulse="TDM_SYNC_INVERT" ctrl_sync_data_delay="TDM_DATA_DELAY_1_BCLK_CYCLE"/>
 	</tdm>
+	<auxpcm>
+		<auxpcm_hw_intf name="auxpcm-pri-rx" lpaif_type="LPAIF_AXI" sync_src="PCM_SYNC_SRC_INTERNAL" ctrl_data="PCM_CTRL_DATA_OE_DISABLE" frame_setting="PCM_BITS_PER_FRAME_128" aux_mode="PCM_MODE" />
+		<auxpcm_hw_intf name="auxpcm-pri-tx" lpaif_type="LPAIF_AXI" sync_src="PCM_SYNC_SRC_INTERNAL" ctrl_data="PCM_CTRL_DATA_OE_DISABLE" frame_setting="PCM_BITS_PER_FRAME_128" aux_mode="PCM_MODE" />
+	</auxpcm>
 </hw_ep_info>
 
 <!-- line_mask in i2s indicates the lines that we are using 
