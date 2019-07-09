@@ -12,11 +12,12 @@ ifeq ($(DUMP)$(PKG_VERSION),)
 endif
 
 include $(INCLUDE_DIR)/package.mk
+PKG_BUILD_DEPENDS:=capiv2-headers
 
 define Package/qal
   SECTION:=AUDIO
   CATEGORY:=AUDIO
-  DEPENDS:= +tinyalsa +audio-utils +libstdcpp +gsl +glib2 +libexpat +capiv2-headers
+  DEPENDS:= +tinyalsa +audio-utils +libstdcpp +gsl +glib2 +libexpat
   MAINTAINER:=QTI MM Audio
   TITLE:=QAL
   SUBMENU:=CASA
