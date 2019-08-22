@@ -12,10 +12,11 @@ SRC_URI += "file://${BASEMACHINE}/"
 
 S = "${WORKDIR}/vendor/qcom/opensource/qal/"
 PR = "r0"
-DEPENDS = "tinyalsa system-media gsl expat glib-2.0 capiv2-headers"
+DEPENDS = "tinyalsa system-media gsl expat glib-2.0 capiv2-headers acdbdata"
 
 EXTRA_OECONF += "--with-glib"
 EXTRA_OECONF += "--with-gecko=${STAGING_INCDIR}/gecko"
+EXTRA_OECONF += "--with-acdbdata=${STAGING_INCDIR}/acdbdata"
 
 do_install_append() {
        install -d ${D}${sysconfdir}
