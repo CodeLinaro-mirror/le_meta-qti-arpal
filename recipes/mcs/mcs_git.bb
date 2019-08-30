@@ -10,6 +10,8 @@ FILESPATH =+ "${WORKSPACE}/:"
 SRC_URI  = "file://vendor/qcom/opensource/qal/mcs/"
 S = "${WORKDIR}/vendor/qcom/opensource/qal/mcs/"
 
+EXTRA_OECONF += "--with-acdbdata=${STAGING_INCDIR}/acdbdata"
+
 DEPENDS = "osal qal glib-2.0"
 PR = "r0"
 
