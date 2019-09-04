@@ -37,6 +37,7 @@ TARGET_CFLAGS += \
                  -I$(STAGING_DIR)/usr/include/audio_route/ \
                  -I$(STAGING_DIR)/usr/include/glib-2.0/ \
                  -I$(STAGING_DIR)/usr/include/capiv2_headers/ \
+                 -I$(STAGING_DIR)/usr/include/acdbdata/ \
                  -DFEATURE_IPQ_OPENWRT
 
 TARGET_LDFLAGS += \
