@@ -17,7 +17,7 @@ PKG_BUILD_DEPENDS:=capiv2-headers
 define Package/qal
   SECTION:=AUDIO
   CATEGORY:=AUDIO
-  DEPENDS:= +tinyalsa +audio-utils +libstdcpp +gsl +glib2 +libexpat
+  DEPENDS:= +tinyalsa +audio-utils +libstdcpp +gsl +glib2 +libexpat +acdbdata
   MAINTAINER:=QTI MM Audio
   TITLE:=QAL
   SUBMENU:=CASA
@@ -37,6 +37,7 @@ TARGET_CFLAGS += \
                  -I$(STAGING_DIR)/usr/include/audio_route/ \
                  -I$(STAGING_DIR)/usr/include/glib-2.0/ \
                  -I$(STAGING_DIR)/usr/include/capiv2_headers/ \
+                 -I$(STAGING_DIR)/usr/include/acdbdata/ \
                  -DFEATURE_IPQ_OPENWRT
 
 TARGET_LDFLAGS += \
@@ -57,10 +58,8 @@ endef
 define Package/qal/install
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(INSTALL_DIR) $(1)/etc
-	$(INSTALL_DIR) $(1)/etc/acdbdata/MTP
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/.libs/libqal.so $(1)/usr/lib
 	$(INSTALL_BIN) ./files/ipq6018/*.xml $(1)/etc
-	$(INSTALL_BIN) ./files/ipq6018/acdb_cal.acdb $(1)/etc/acdbdata/MTP
 endef
 
 $(eval $(call BuildPackage,qal))
