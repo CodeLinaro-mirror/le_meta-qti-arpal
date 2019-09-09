@@ -17,7 +17,7 @@ PKG_BUILD_DEPENDS:=capiv2-headers
 define Package/qal
   SECTION:=AUDIO
   CATEGORY:=AUDIO
-  DEPENDS:= +tinyalsa +audio-utils +libstdcpp +gsl +glib2 +libexpat +acdbdata
+  DEPENDS:= +tinyalsa +audio-utils +libstdcpp +gsl +glib2 +libexpat +acdbdata +tinycompress +agm
   MAINTAINER:=QTI MM Audio
   TITLE:=QAL
   SUBMENU:=CASA
@@ -38,6 +38,7 @@ TARGET_CFLAGS += \
                  -I$(STAGING_DIR)/usr/include/glib-2.0/ \
                  -I$(STAGING_DIR)/usr/include/capiv2_headers/ \
                  -I$(STAGING_DIR)/usr/include/acdbdata/ \
+                 -I$(STAGING_DIR)/usr/include/agm/ \
                  -DFEATURE_IPQ_OPENWRT
 
 TARGET_LDFLAGS += \

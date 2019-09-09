@@ -26,9 +26,9 @@
 <!-- IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                             -->
 <resource_manager_info>
     <pcm_ids>
-        <device name="QAL_DEVICE_OUT_SPEAKER" pcm_id="0" hw_intf="cdc-pri" snd_device_name="speaker"/>
-        <device name="QAL_DEVICE_IN_HANDSET_MIC" pcm_id="3" hw_intf="cdc-sec" snd_device_name="handset-mic"/>
-        <device name="QAL_DEVICE_IN_SPEAKER_MIC" pcm_id="3" hw_intf="cdc-sec" snd_device_name="speaker-mic"/>
-        <device name="QAL_DEVICE_IN_TRI_MIC" pcm_id="3" hw_intf="cdc-sec" snd_device_name="three-mic"/>
+        <device name="QAL_DEVICE_OUT_SPEAKER" pcm_id="0" hw_intf="cdc-pri" snd_device_name="speaker" back_end_name="CODEC_DMA-LPAIF_WSA-RX-0"/>
+        <device name="QAL_DEVICE_IN_HANDSET_MIC" pcm_id="3" hw_intf="cdc-sec" snd_device_name="handset-mic" back_end_name="CODEC_DMA-LPAIF_RXTX-TX-3"/>
+        <device name="QAL_DEVICE_IN_SPEAKER_MIC" pcm_id="3" hw_intf="cdc-sec" snd_device_name="speaker-mic" back_end_name="CODEC_DMA-LPAIF_RXTX-TX-3"/>
+        <device name="QAL_DEVICE_IN_TRI_MIC" pcm_id="3" hw_intf="cdc-sec" snd_device_name="three-mic" back_end_name="CODEC_DMA-LPAIF_RXTX-TX-3"/>
     </pcm_ids>
 </resource_manager_info>
