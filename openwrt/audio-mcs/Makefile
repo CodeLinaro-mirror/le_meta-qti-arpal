@@ -1,6 +1,6 @@
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=mcs
+PKG_NAME:=audio-mcs
 PKG_RELEASE:=1
 PKG_FIXUP:=autoreconf
 
@@ -13,7 +13,7 @@ endif
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/mcs
+define Package/audio-mcs
   SECTION:=AUDIO
   CATEGORY:=AUDIO
   DEPENDS:= +osal +qal +glib2 +acdb
@@ -22,7 +22,7 @@ define Package/mcs
   SUBMENU:=CASA
 endef
 
-define Package/mcs/description
+define Package/audio-mcs/description
   This package contails mcs
 endef
 
@@ -45,14 +45,14 @@ define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/include/mcs/
 	$(INSTALL_DIR) $(1)/usr/lib/
 	$(CP) $(PKG_BUILD_DIR)/inc/*.h $(1)/usr/include/mcs/
-	$(CP) $(PKG_BUILD_DIR)/.libs/libmcs.so $(1)/usr/lib/
+	$(CP) $(PKG_BUILD_DIR)/.libs/libaudiomcs.so $(1)/usr/lib/
 endef
 
-define Package/mcs/install
+define Package/audio-mcs/install
 	$(INSTALL_DIR) $(1)/usr/lib/
 	$(INSTALL_DIR) $(1)/usr/bin/
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/.libs/libmcs.so $(1)/usr/lib/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/.libs/libaudiomcs.so $(1)/usr/lib/
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/.libs/mcs_test $(1)/usr/bin/
 endef
 
-$(eval $(call BuildPackage,mcs))
+$(eval $(call BuildPackage,audio-mcs))
