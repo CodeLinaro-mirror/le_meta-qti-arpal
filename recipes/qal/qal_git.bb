@@ -11,7 +11,7 @@ SRC_URI  = "file://vendor/qcom/opensource/pal/"
 
 S = "${WORKDIR}/vendor/qcom/opensource/pal/"
 PR = "r0"
-DEPENDS = "tinyalsa audio-route tinycompress agm media-headers mm-audio-headers"
+DEPENDS = "tinyalsa audio-route tinycompress agm-client media-headers mm-audio-headers"
 
 EXTRA_OECONF += "--with-glib"
 EXTRA_OECONF += "--with-basemachine=${BASEMACHINE}"
