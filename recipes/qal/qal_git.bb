@@ -2,16 +2,24 @@ inherit autotools pkgconfig
 
 DESCRIPTION = "pal"
 SECTION = "multimedia"
-LICENSE = "BSD"
+LICENSE = "BSD-Source-Code"
 LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/\
-${LICENSE};md5=3775480a712fc46a69647678acb234cb"
+${LICENSE};md5=fe8b41221d7524c70688f7d059ff6d87"
 
 FILESPATH =+ "${WORKSPACE}/:"
 SRC_URI  = "file://vendor/qcom/opensource/pal/"
 
 S = "${WORKDIR}/vendor/qcom/opensource/pal/"
 PR = "r0"
-DEPENDS = "tinyalsa audio-route tinycompress agm-client media-headers mm-audio-headers"
+DEPENDS = "tinyalsa tinycompress agm audio-route mm-audio-headers media-headers"
+
+do_install:append:kalama() {
+	mkdir -p -m 0755 ${D}${sysconfdir}
+    install -m 0644 ${S}configs/kalama-le/card-defs.xml ${D}${sysconfdir}/card-defs.xml
+	install -m 0644 ${S}configs/kalama-le/mixer_paths_kalama_qrd.xml ${D}${sysconfdir}/mixer_paths_kalama_qrd.xml
+	install -m 0644 ${S}configs/kalama-le/resourcemanager_kalama_qrd.xml ${D}${sysconfdir}/resourcemanager_kalama_qrd.xml
+	install -m 0644 ${S}configs/kalama-le/usecaseKvManager.xml ${D}${sysconfdir}/usecaseKvManager.xml
+}
 
 EXTRA_OECONF += "--with-glib"
 EXTRA_OECONF += "--with-basemachine=${BASEMACHINE}"
