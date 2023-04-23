@@ -13,10 +13,6 @@ S = "${WORKDIR}/vendor/qcom/opensource/pal/"
 PR = "r0"
 DEPENDS = "tinyalsa audio-route capiv2-headers tinycompress agm media-headers"
 
-pkg_postinst_ontarget_${PN}(){
-    chmod o+x /data/misc
-}
-
 EXTRA_OECONF += "--with-glib"
 EXTRA_OECONF += "--with-basemachine=${BASEMACHINE}"
 
