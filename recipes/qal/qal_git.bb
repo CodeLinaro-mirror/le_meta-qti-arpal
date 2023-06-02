@@ -15,9 +15,11 @@ DEPENDS = "tinyalsa tinycompress agm audio-route mm-audio-headers media-headers"
 
 do_install:append:kalama() {
 	mkdir -p -m 0755 ${D}${sysconfdir}
-    install -m 0644 ${S}configs/kalama-le/card-defs.xml ${D}${sysconfdir}/card-defs.xml
+	install -m 0644 ${S}configs/kalama-le/card-defs.xml ${D}${sysconfdir}/card-defs.xml
 	install -m 0644 ${S}configs/kalama-le/mixer_paths_kalama_qrd.xml ${D}${sysconfdir}/mixer_paths_kalama_qrd.xml
 	install -m 0644 ${S}configs/kalama-le/resourcemanager_kalama_qrd.xml ${D}${sysconfdir}/resourcemanager_kalama_qrd.xml
+	install -m 0644 ${S}configs/kalama-le/mixer_paths_kalama_rb5_gen2.xml ${D}${sysconfdir}/mixer_paths_kalama_rb5_gen2.xml
+	install -m 0644 ${S}configs/kalama-le/resourcemanager_kalama_rb5_gen2.xml ${D}${sysconfdir}/resourcemanager_kalama_rb5_gen2.xml
 	install -m 0644 ${S}configs/kalama-le/usecaseKvManager.xml ${D}${sysconfdir}/usecaseKvManager.xml
 }
 
