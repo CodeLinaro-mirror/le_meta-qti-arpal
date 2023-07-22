@@ -20,6 +20,9 @@ do_install:append:kalama() {
 	install -m 0644 ${S}configs/kalama-le/resourcemanager_kalama_qrd.xml ${D}${sysconfdir}/resourcemanager_kalama_qrd.xml
 	install -m 0644 ${S}configs/kalama-le/mixer_paths_kalama_rb5_gen2.xml ${D}${sysconfdir}/mixer_paths_kalama_rb5_gen2.xml
 	install -m 0644 ${S}configs/kalama-le/resourcemanager_kalama_rb5_gen2.xml ${D}${sysconfdir}/resourcemanager_kalama_rb5_gen2.xml
+	install -m 0644 ${S}configs/kalama-le/mixer_paths_kalama_cdp.xml ${D}${sysconfdir}/mixer_paths_kalama_cdp.xml
+	install -m 0644 ${S}configs/kalama-le/mixer_paths_kalama_cdp_wsa883x.xml ${D}${sysconfdir}/mixer_paths_kalama_cdp_wsa883x.xml
+	install -m 0644 ${S}configs/kalama-le/resourcemanager_kalama_cdp.xml ${D}${sysconfdir}/resourcemanager_kalama_cdp.xml
 	install -m 0644 ${S}configs/kalama-le/usecaseKvManager.xml ${D}${sysconfdir}/usecaseKvManager.xml
 }
 
