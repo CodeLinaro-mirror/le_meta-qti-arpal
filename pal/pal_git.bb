@@ -13,7 +13,7 @@ SRC_URI  = "file://audio/opensource/arpal-lx/ \
 
 S = "${WORKDIR}/audio/opensource/arpal-lx"
 PR = "r0"
-DEPENDS = "tinyalsa tinycompress agm mm-audio-headers audioroute dspservices-headers"
+DEPENDS = "tinyalsa tinycompress agm mm-audio-headers audioroute dspservices-headers vui-interface pal-headers"
 
 EXTRA_OECONF += "--with-glib --with-syslog"
 EXTRA_OECONF += "--with-basemachine=${BASEMACHINE}"
