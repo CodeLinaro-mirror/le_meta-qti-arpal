@@ -10,7 +10,7 @@ FILESPATH =+ "${WORKSPACE}/:"
 SRC_URI  = "file://audio/opensource/arpal-lx/ \
             file://0001-pal-pal-patch.patch"
 
-S = "${WORKDIR}/audio/opensource/arpal-lx/"
+S = "${WORKDIR}/audio/opensource/arpal-lx"
 PR = "r0"
 DEPENDS = "tinyalsa tinycompress agm mm-audio-headers audioroute"
 
