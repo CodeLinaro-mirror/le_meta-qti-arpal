@@ -1,4 +1,4 @@
-inherit autotools pkgconfig
+inherit autotools pkgconfig systemd
 
 DESCRIPTION = "pal"
 SECTION = "multimedia"
@@ -8,15 +8,25 @@ LIC_FILES_CHKSUM += "file://Pal.cpp;beginline=30;endline=31;md5=4a19879b8f612e3e
 
 FILESPATH =+ "${WORKSPACE}/:"
 SRC_URI  = "file://audio/opensource/arpal-lx/ \
-            file://0001-pal-pal-patch.patch"
+            file://0001-pal-pal-patch.patch \
+            file://adsprpcd_audiopd.service"
 
 S = "${WORKDIR}/audio/opensource/arpal-lx"
 PR = "r0"
-DEPENDS = "tinyalsa tinycompress agm mm-audio-headers audioroute"
+DEPENDS = "tinyalsa tinycompress agm mm-audio-headers audioroute dspservices-headers"
 
 EXTRA_OECONF += "--with-glib --with-syslog"
 EXTRA_OECONF += "--with-basemachine=${BASEMACHINE}"
 
-SOLIBS = ".so"
+SYSTEMD_SERVICE:${PN} += "adsprpcd_audiopd.service"
 
-FILES_SOLIBSDEV = ""
+do_install:append () {
+    install -d ${D}${systemd_system_unitdir}
+    install -m 0644 ${WORKDIR}/adsprpcd_audiopd.service ${D}${systemd_system_unitdir}
+    install -d ${D}${systemd_system_unitdir}/multi-user.target.wants/
+    ln -sf ${systemd_system_unitdir}/adsprpcd_audiopd.service \
+           ${D}${systemd_system_unitdir}/multi-user.target.wants/adsprpcd_audiopd.service
+}
+
+FILES:${PN} += "${libdir}/*.so ${libdir}/pkgconfig/ ${systemd_unitdir}/system/* ${sysconfdir}/* ${bindir}/*"
+FILES:${PN}-dev = "${libdir}/*.la ${includedir}"
