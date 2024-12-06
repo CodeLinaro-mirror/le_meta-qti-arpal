@@ -17,6 +17,7 @@ DEPENDS = "tinyalsa tinycompress agm mm-audio-headers audio-route dspservices-he
 
 EXTRA_OECONF += "--with-glib --without-syslog"
 EXTRA_OECONF += "--with-basemachine=${BASEMACHINE}"
+EXTRA_OECONF:append:pineapple = "--with-spkrcalpath=/data/misc/audio/audio.cal"
 
 SYSTEMD_SERVICE:${PN} += "adsprpcd_audiopd.service"
 
