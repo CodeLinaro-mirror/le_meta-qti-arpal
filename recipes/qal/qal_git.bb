@@ -17,7 +17,7 @@ DEPENDS = "tinyalsa audio-route capiv2-headers tinycompress agm media-headers"
 EXTRA_OECONF += "--with-glib"
 EXTRA_OECONF += "--with-acdbdata=${STAGING_INCDIR}/acdbdata"
 
-do_install_append() {
+do_install:append() {
        install -d ${D}${sysconfdir}
        install -m 0755 ${WORKDIR}/${BASEMACHINE}/* ${D}${sysconfdir}/
 }
