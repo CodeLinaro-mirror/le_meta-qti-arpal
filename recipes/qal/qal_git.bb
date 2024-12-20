@@ -8,8 +8,7 @@ LIC_FILES_CHKSUM += "file://Pal.cpp;beginline=31;endline=32;md5=e733afaf233fbcbc
 
 FILESPATH =+ "${WORKSPACE}/:"
 SRC_URI  = "file://vendor/qcom/opensource/pal/ \
-            file://0001-pal-pal-patch.patch \
-            file://adsprpcd_audiopd.service"
+            file://0001-pal-pal-patch.patch"
 
 S = "${WORKDIR}/vendor/qcom/opensource/pal"
 
@@ -18,15 +17,6 @@ DEPENDS = "tinyalsa tinycompress agm mm-audio-headers audio-route dspservices-he
 EXTRA_OECONF += "--with-glib --without-syslog"
 EXTRA_OECONF += "--with-basemachine=${BASEMACHINE}"
 
-SYSTEMD_SERVICE:${PN} += "adsprpcd_audiopd.service"
-
-do_install:append () {
-    install -d ${D}${systemd_system_unitdir}
-    install -m 0644 ${WORKDIR}/adsprpcd_audiopd.service ${D}${systemd_system_unitdir}
-    install -d ${D}${systemd_system_unitdir}/multi-user.target.wants/
-    ln -sf ${systemd_system_unitdir}/adsprpcd_audiopd.service \
-           ${D}${systemd_system_unitdir}/multi-user.target.wants/adsprpcd_audiopd.service
-}
 
 do_install:append:pineapple() {
     mkdir -p -m 0755 ${D}${sysconfdir}
