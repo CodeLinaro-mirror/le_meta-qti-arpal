@@ -1,3 +1,4 @@
-RDEPENDS_packagegroup-qti-audio += ' \
+RDEPENDS:packagegroup-qti-audio += ' \
     qal \
+    qal-headers \
 '
