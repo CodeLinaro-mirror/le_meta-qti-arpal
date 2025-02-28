@@ -12,7 +12,7 @@ SRC_URI += "file://${BASEMACHINE}/"
 
 S = "${WORKDIR}/vendor/qcom/opensource/pal/"
 PR = "r0"
-DEPENDS = "tinyalsa audio-route mm-audio-headers tinycompress agm media-headers"
+DEPENDS = "tinyalsa audio-route mm-audio-headers tinycompress agm media-headers qal-headers"
 
 EXTRA_OECONF += "--with-glib"
 EXTRA_OECONF += "--with-acdbdata=${STAGING_INCDIR}/acdbdata"
