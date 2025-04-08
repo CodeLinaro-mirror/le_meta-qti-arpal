@@ -3,8 +3,7 @@ inherit autotools pkgconfig systemd
 DESCRIPTION = "qal"
 SECTION = "multimedia"
 LICENSE = "BSD-3-Clause"
-LIC_FILES_CHKSUM += "file://Pal.cpp;beginline=31;endline=32;md5=e733afaf233fbcbc22769d0a9bda0b3e \
-                     file://inc/PalDefs.h;beginline=30;endline=31;md5=e733afaf233fbcbc22769d0a9bda0b3e"
+LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/${LICENSE};md5=550794465ba0ec5312d6919e203a55f9"
 
 FILESPATH =+ "${WORKSPACE}/:"
 SRC_URI  = "file://vendor/qcom/opensource/pal/ \
@@ -12,12 +11,11 @@ SRC_URI  = "file://vendor/qcom/opensource/pal/ \
 
 S = "${WORKDIR}/vendor/qcom/opensource/pal"
 
-DEPENDS = "tinyalsa tinycompress agm mm-audio-headers audio-route dspservices-headers vui-interface qal-headers media-headers"
+DEPENDS = "tinyalsa tinycompress agm mm-audio-headers audio-route dspservices-headers qal-headers media-headers"
 
-EXTRA_OECONF += "--with-glib --without-syslog"
+EXTRA_OECONF += "--with-glib --without-syslog --with-spf"
 EXTRA_OECONF += "--with-basemachine=${BASEMACHINE}"
-EXTRA_OECONF:append:pineapple = "--with-spkrcalpath=/data/misc/audio/audio.cal"
-
+EXTRA_OECONF:append = " ${@bb.utils.contains('BASEMACHINE', 'pineapple sun', '--with-spkrcalpath=/data/misc/audio/audio.cal', '', d)}"
 
 do_install:append:pineapple() {
     mkdir -p -m 0755 ${D}${sysconfdir}
@@ -45,5 +43,22 @@ do_install:append:pineapple() {
     install -m 0644 ${S}/configs/pineapple-le/resourcemanager_pineapple_qrd_sku2.xml ${D}${sysconfdir}/resourcemanager_pineapple_qrd_sku2.xml
 }
 
+do_install:append:sun() {
+    mkdir -p -m 0755 ${D}${sysconfdir}
+    install -m 0644 ${S}/configs/sun/card-defs.xml ${D}${sysconfdir}/card-defs.xml
+    install -m 0644 ${S}/configs/sun/mixer_paths_sun_qrd_sku2.xml ${D}${sysconfdir}/mixer_paths_sun_qrd_sku2.xml
+    install -m 0644 ${S}/configs/sun/resourcemanager_sun_qrd.xml ${D}${sysconfdir}/resourcemanager_sun_qrd.xml
+    install -m 0644 ${S}/configs/sun/Hapticsconfig.xml ${D}${sysconfdir}/Hapticsconfig.xml
+    install -m 0644 ${S}/configs/sun/mixer_paths_sun_qrd.xml ${D}${sysconfdir}/mixer_paths_sun_qrd.xml
+    install -m 0644 ${S}/configs/sun/usecaseKvManager.xml ${D}${sysconfdir}/usecaseKvManager.xml
+    install -m 0644 ${S}/configs/sun/mixer_paths_sun_mtp_wsa883x_qmp.xml ${D}${sysconfdir}/mixer_paths_sun_mtp_wsa883x_qmp.xml
+    install -m 0644 ${S}/configs/sun/resourcemanager_sun_cdp.xml ${D}${sysconfdir}/resourcemanager_sun_cdp.xml
+    install -m 0644 ${S}/configs/sun/mixer_paths_sun_cdp.xml ${D}${sysconfdir}/mixer_paths_sun_cdp.xml
+    install -m 0644 ${S}/configs/sun/resourcemanager_sun_mtp.xml ${D}${sysconfdir}/resourcemanager_sun_mtp.xml
+    install -m 0644 ${S}/configs/sun/mixer_paths_sun_mtp.xml ${D}${sysconfdir}/mixer_paths_sun_mtp.xml
+    install -m 0644 ${S}/configs/sun/resourcemanager_sun_qrd_sku2.xml ${D}${sysconfdir}/resourcemanager_sun_qrd_sku2.xml
+    install -m 0644 ${S}/configs/sun/plugin_manager.xml ${D}${sysconfdir}/plugin_manager.xml
+}
+
 FILES:${PN} += "${libdir}/*.so ${libdir}/pkgconfig/ ${systemd_unitdir}/system/* ${sysconfdir}/* ${bindir}/*"
-FILES:${PN}-dev = "${libdir}/*.la ${includedir}"
+FILES:${PN}-dev = "${libdir}/*.la ${includedir} ${libdir}/pkgconfig$/codecs.pc"

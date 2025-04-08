@@ -19,7 +19,7 @@ index c5d05d1d..f13caaba 100644
 @@ -30,7 +30,10 @@
  #define LOG_TAG "PAL: bt_aptx"
  //#define LOG_NDEBUG 0
- 
+
 +#ifndef PAL_USE_SYSLOG
  #include <log/log.h>
 +#endif
@@ -34,7 +34,7 @@ index 5913fd4e..9bc7bba2 100644
 @@ -35,6 +35,10 @@
  #define LOG_TAG "PAL: bt_ble"
  //#define LOG_NDEBUG 0
- 
+
 +#ifndef PAL_USE_SYSLOG
 +#include <log/log.h>
 +#endif
@@ -49,7 +49,7 @@ index 693effba..0324a325 100644
 @@ -30,7 +30,10 @@
  #define LOG_TAG "PAL: bt_bundle"
  //#define LOG_NDEBUG 0
- 
+
 +#ifndef PAL_USE_SYSLOG
  #include <log/log.h>
 +#endif
@@ -64,14 +64,14 @@ index 11c93567..47f94625 100644
 @@ -34,7 +34,10 @@
  #define LOG_TAG "PAL: CustomVAInterface"
  //#define LOG_NDEBUG 0
- 
+
 +#ifndef PAL_USE_SYSLOG
  #include <log/log.h>
 +#endif
 +#include "PalCommon.h"
  #include "CustomVAInterface.h"
- #ifndef PAL_CUTILS_UNSUPPORTED
- #include <cutils/properties.h>
+ #include <stdexcept>
+ #ifdef FEATURE_IPQ_OPENWRT
 diff --git a/plugins/hotword_intf/src/HotwordInterface.cpp b/plugins/hotword_intf/src/HotwordInterface.cpp
 index fe214498..ae7f57fa 100644
 --- a/plugins/hotword_intf/src/HotwordInterface.cpp
@@ -79,12 +79,13 @@ index fe214498..ae7f57fa 100644
 @@ -34,7 +34,9 @@
  #define LOG_TAG "PAL: HotwordInterface"
  //#define LOG_NDEBUG 0
- 
+
 +#ifndef PAL_USE_SYSLOG
  #include <log/log.h>
 +#endif
+ #include <stdexcept>
  #include "HotwordInterface.h"
- 
+
  extern "C" int32_t get_vui_interface(struct vui_intf_t *intf,
 diff --git a/utils/src/MetadataParser.cpp b/utils/src/MetadataParser.cpp
 index 9791e1c4..99464c18 100644
@@ -92,7 +93,7 @@ index 9791e1c4..99464c18 100644
 +++ b/utils/src/MetadataParser.cpp
 @@ -6,7 +6,10 @@
  #define LOG_TAG "PAL: MetadataParser"
- 
+
  #include <string>
 +#ifndef PAL_USE_SYSLOG
  #include <log/log.h>
@@ -101,6 +102,6 @@ index 9791e1c4..99464c18 100644
  #include <unistd.h>
  #include "PalDefs.h"
  #include "MetadataParser.h"
--- 
+--
 2.17.1
 
