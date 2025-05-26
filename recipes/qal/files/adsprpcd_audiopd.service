@@ -1,17 +1,17 @@
 #
-# Copyright (c) 2023-2024 Qualcomm Innovation Center, Inc. All rights reserved.
+# Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
 # SPDX-License-Identifier: BSD-3-Clause-Clear
 #
 
 [Unit]
 Description=Audio adsprpc Service
-SourcePath=/usr/bin/audioadsprpcd
+SourcePath=/usr/bin/adsprpcd
 
 [Service]
 User=system
 Group=system
 Restart=on-failure
-ExecStart=/usr/bin/audioadsprpcd audiopd
+ExecStart=/usr/bin/adsprpcd audiopd
 
 [Install]
 WantedBy=multi-user.target
