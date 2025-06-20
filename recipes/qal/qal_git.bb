@@ -75,7 +75,7 @@ do_install:append:sdmsteppe() {
    install -m 0644 ${S}/configs/sdmsteppe/audio_policy_configuration.xml ${D}${sysconfdir}/audio_policy_configuration.xml
    install -m 0644 ${S}/configs/sdmsteppe/graphite_ipc_platform_info.xml ${D}${sysconfdir}/graphite_ipc_platform_info.xml
    install -m 0644 ${S}/configs/sdmsteppe/listen_platform_info.xml ${D}${sysconfdir}/listen_platform_info.xml
-   install -m 0644 ${S}/configs/sdmsteppe/mixer_paths_idp.xml ${D}${sysconfdir}/mixer_paths_idp.xml
+   install -m 0644 ${S}/configs/sdmsteppe/mixer_paths_sm6150_idp.xml ${D}${sysconfdir}/mixer_paths_sm6150_idp.xml
    install -m 0644 ${S}/configs/sdmsteppe/mixer_paths_ipc.xml ${D}${sysconfdir}/mixer_paths_ipc.xml
    install -m 0644 ${S}/configs/sdmsteppe/mixer_paths_qrd.xml ${D}${sysconfdir}/mixer_paths_qrd.xml
    install -m 0644 ${S}/configs/sdmsteppe/mixer_paths_tavil.xml ${D}${sysconfdir}/mixer_paths_tavil.xml
@@ -85,6 +85,9 @@ do_install:append:sdmsteppe() {
    install -m 0644 ${S}/configs/sdmsteppe/sound_trigger_mixer_paths_wcd9340.xml ${D}${sysconfdir}/sound_trigger_mixer_paths_wcd9340.xml
    install -m 0644 ${S}/configs/sdmsteppe/sound_trigger_mixer_paths.xml ${D}${sysconfdir}/sound_trigger_mixer_paths.xml
    install -m 0644 ${S}/configs/sdmsteppe/sound_trigger_platform_info.xml ${D}${sysconfdir}/sound_trigger_platform_info.xml
+   install -m 0644 ${S}/configs/sdmsteppe/resourcemanager_sm6150_idp.xml ${D}${sysconfdir}/resourcemanager_sm6150_idp.xml
+   install -m 0644 ${S}/configs/sdmsteppe/usecaseKvManager.xml ${D}${sysconfdir}/usecaseKvManager.xml
+   install -m 0644 ${S}/configs/sdmsteppe/plugin_manager.xml ${D}${sysconfdir}/plugin_manager.xml
    install -d ${D}${systemd_unitdir}/system
    install -m 0755 ${WORKDIR}/adsprpcd_audiopd.service ${D}${systemd_unitdir}/system/
 }
