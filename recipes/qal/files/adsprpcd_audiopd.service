@@ -6,11 +6,14 @@
 [Unit]
 Description=Audio adsprpc Service
 SourcePath=/usr/bin/adsprpcd
+After=init_audio.service
+Requires=init_audio.service
 
 [Service]
 User=system
 Group=system
 Restart=on-failure
+ExecStartPre=/bin/sleep 1
 ExecStart=/usr/bin/adsprpcd audiopd
 
 [Install]
