@@ -11,7 +11,7 @@ SRC_URI  = "file://vendor/qcom/opensource/pal/"
 
 S = "${WORKDIR}/vendor/qcom/opensource/pal/"
 PR = "r0"
-DEPENDS = "tinyalsa tinycompress agm audio-route mm-audio-headers media-headers"
+DEPENDS = "tinyalsa tinycompress agm-client audio-route mm-audio-headers media-headers"
 
 do_install:append:kalama() {
 	mkdir -p -m 0755 ${D}${sysconfdir}
