@@ -79,6 +79,22 @@ do_install:append:kera() {
     install -m 0755 ${WORKDIR}/adsprpcd_audiopd.service ${D}${systemd_unitdir}/system/
 }
 
+do_install:append:canoe() {
+    mkdir -p -m 0755 ${D}${sysconfdir}
+    install -m 0644 ${S}/configs/canoe/card-defs.xml ${D}${sysconfdir}/card-defs.xml
+    install -m 0644 ${S}/configs/canoe/resourcemanager_canoe_qrd.xml ${D}${sysconfdir}/resourcemanager_canoe_qrd.xml
+    install -m 0644 ${S}/configs/canoe/Hapticsconfig.xml ${D}${sysconfdir}/Hapticsconfig.xml
+    install -m 0644 ${S}/configs/canoe/mixer_paths_canoe_qrd.xml ${D}${sysconfdir}/mixer_paths_canoe_qrd.xml
+    install -m 0644 ${S}/configs/canoe/usecaseKvManager.xml ${D}${sysconfdir}/usecaseKvManager.xml
+    install -m 0644 ${S}/configs/canoe/resourcemanager_canoe_cdp.xml ${D}${sysconfdir}/resourcemanager_canoe_cdp.xml
+    install -m 0644 ${S}/configs/canoe/mixer_paths_canoe_cdp.xml ${D}${sysconfdir}/mixer_paths_canoe_cdp.xml
+    install -m 0644 ${S}/configs/canoe/resourcemanager_canoe_mtp.xml ${D}${sysconfdir}/resourcemanager_canoe_mtp.xml
+    install -m 0644 ${S}/configs/canoe/mixer_paths_canoe_mtp.xml ${D}${sysconfdir}/mixer_paths_canoe_mtp.xml
+    install -m 0644 ${S}/configs/canoe/plugin_manager.xml ${D}${sysconfdir}/plugin_manager.xml
+    install -d ${D}${systemd_unitdir}/system
+    install -m 0755 ${WORKDIR}/adsprpcd_audiopd.service ${D}${systemd_unitdir}/system/
+}
+
 do_install:append:sdmsteppe() {
    mkdir -p -m 0755 ${D}${sysconfdir}
    install -m 0644 ${S}/configs/sdmsteppe/audio_effects.xml ${D}${sysconfdir}/audio_effects.xml
