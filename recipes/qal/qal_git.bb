@@ -16,7 +16,7 @@ DEPENDS = "tinyalsa tinycompress agm mm-audio-headers audio-route dspservices-he
 
 EXTRA_OECONF += "--with-glib --without-syslog --with-spf"
 EXTRA_OECONF += "--with-basemachine=${BASEMACHINE}"
-EXTRA_OECONF:append = " ${@bb.utils.contains('BASEMACHINE', 'pineapple sun kera sdmsteppe', '--with-spkrcalpath=/data/misc/audio/audio.cal', '', d)}"
+EXTRA_OECONF:append = " ${@bb.utils.contains_any('BASEMACHINE', 'pineapple sun kera sdmsteppe', '--with-spkrcalpath=/data/misc/audio/audio.cal', '', d)}"
 
 do_install:append:pineapple() {
     mkdir -p -m 0755 ${D}${sysconfdir}
