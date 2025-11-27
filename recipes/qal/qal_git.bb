@@ -106,6 +106,23 @@ do_install:append:sdmsteppe() {
    install -m 0755 ${WORKDIR}/adsprpcd_audiopd.service ${D}${systemd_unitdir}/system/
 }
 
+do_install:append:alor() {
+    mkdir -p -m 0755 ${D}${sysconfdir}
+    install -m 0644 ${S}/configs/alor-le/card-defs.xml ${D}${sysconfdir}/card-defs.xml
+    install -m 0644 ${S}/configs/alor-le/resourcemanager_alor_qrd.xml ${D}${sysconfdir}/resourcemanager_alor_qrd.xml
+    install -m 0644 ${S}/configs/alor-le/resourcemanager_alor_cdp.xml ${D}${sysconfdir}/resourcemanager_alor_cdp.xml
+    install -m 0644 ${S}/configs/alor-le/resourcemanager_alor_mtp_wcd9378.xml ${D}${sysconfdir}/resourcemanager_alor_mtp_wcd9378.xml
+    install -m 0644 ${S}/configs/alor-le/resourcemanager_alor_mtp_wcd939x.xml ${D}${sysconfdir}/resourcemanager_alor_mtp_wcd939x.xml
+    install -m 0644 ${S}/configs/alor-le/mixer_paths_alor_qrd.xml ${D}${sysconfdir}/mixer_paths_alor_qrd.xml
+    install -m 0644 ${S}/configs/alor-le/mixer_paths_alor_cdp.xml ${D}${sysconfdir}/mixer_paths_alor_cdp.xml
+    install -m 0644 ${S}/configs/alor-le/mixer_paths_alor_mtp_wcd9378.xml ${D}${sysconfdir}/mixer_paths_alor_mtp_wcd9378.xml
+    install -m 0644 ${S}/configs/alor-le/mixer_paths_alor_mtp_wcd939x.xml ${D}${sysconfdir}/mixer_paths_alor_mtp_wcd939x.xml
+    install -m 0644 ${S}/configs/alor-le/usecaseKvManager.xml ${D}${sysconfdir}/usecaseKvManager.xml
+    install -m 0644 ${S}/configs/alor-le/plugin_manager.xml ${D}${sysconfdir}/plugin_manager.xml
+    install -d ${D}${systemd_unitdir}/system
+    install -m 0755 ${WORKDIR}/adsprpcd_audiopd.service ${D}${systemd_unitdir}/system/
+}
+
 SYSTEMD_SERVICE:${PN}:append = " adsprpcd_audiopd.service"
 
 FILES:${PN} += "${libdir}/*.so ${libdir}/pkgconfig/ ${systemd_unitdir}/system/* ${sysconfdir}/* ${bindir}/*"
