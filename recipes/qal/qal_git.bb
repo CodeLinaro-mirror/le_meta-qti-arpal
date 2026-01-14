@@ -16,7 +16,7 @@ DEPENDS = "tinyalsa tinycompress agm mm-audio-headers audio-route dspservices-he
 
 EXTRA_OECONF += "--with-glib --without-syslog --with-spf"
 EXTRA_OECONF += "--with-basemachine=${BASEMACHINE}"
-EXTRA_OECONF:append = " ${@bb.utils.contains('BASEMACHINE', 'pineapple sun kera sdmsteppe', '--with-spkrcalpath=/data/misc/audio/audio.cal', '', d)}"
+EXTRA_OECONF:append = " ${@bb.utils.contains_any('BASEMACHINE', 'pineapple sun kera sdmsteppe', '--with-spkrcalpath=/data/misc/audio/audio.cal', '', d)}"
 
 do_install:append:pineapple() {
     mkdir -p -m 0755 ${D}${sysconfdir}
@@ -92,7 +92,7 @@ do_install:append:sdmsteppe() {
    install -m 0644 ${S}/configs/sdmsteppe/mixer_paths_sm6150_idp.xml ${D}${sysconfdir}/mixer_paths_sm6150_idp.xml
    install -m 0644 ${S}/configs/sdmsteppe/mixer_paths_ipc.xml ${D}${sysconfdir}/mixer_paths_ipc.xml
    install -m 0644 ${S}/configs/sdmsteppe/mixer_paths_qrd.xml ${D}${sysconfdir}/mixer_paths_qrd.xml
-   install -m 0644 ${S}/configs/sdmsteppe/mixer_paths_tavil.xml ${D}${sysconfdir}/mixer_paths_tavil.xml
+   install -m 0644 ${S}/configs/sdmsteppe/mixer_paths_sm6150_tavil.xml ${D}${sysconfdir}/mixer_paths_sm6150_tavil.xml
    install -m 0644 ${S}/configs/sdmsteppe/mixer_paths_wcd9375qrd.xml ${D}${sysconfdir}/mixer_paths_wcd9375qrd.xml
    install -m 0644 ${S}/configs/sdmsteppe/mixer_paths_wcd9375.xml ${D}${sysconfdir}/mixer_paths_wcd9375.xml
    install -m 0644 ${S}/configs/sdmsteppe/sound_trigger_mixer_paths_qrd.xml ${D}${sysconfdir}/sound_trigger_mixer_paths_qrd.xml
@@ -100,10 +100,28 @@ do_install:append:sdmsteppe() {
    install -m 0644 ${S}/configs/sdmsteppe/sound_trigger_mixer_paths.xml ${D}${sysconfdir}/sound_trigger_mixer_paths.xml
    install -m 0644 ${S}/configs/sdmsteppe/sound_trigger_platform_info.xml ${D}${sysconfdir}/sound_trigger_platform_info.xml
    install -m 0644 ${S}/configs/sdmsteppe/resourcemanager_sm6150_idp.xml ${D}${sysconfdir}/resourcemanager_sm6150_idp.xml
+   install -m 0644 ${S}/configs/sdmsteppe/resourcemanager_sm6150_tavil.xml ${D}${sysconfdir}/resourcemanager_sm6150_tavil.xml
    install -m 0644 ${S}/configs/sdmsteppe/usecaseKvManager.xml ${D}${sysconfdir}/usecaseKvManager.xml
    install -m 0644 ${S}/configs/sdmsteppe/plugin_manager.xml ${D}${sysconfdir}/plugin_manager.xml
    install -d ${D}${systemd_unitdir}/system
    install -m 0755 ${WORKDIR}/adsprpcd_audiopd.service ${D}${systemd_unitdir}/system/
+}
+
+do_install:append:alor() {
+    mkdir -p -m 0755 ${D}${sysconfdir}
+    install -m 0644 ${S}/configs/alor-le/card-defs.xml ${D}${sysconfdir}/card-defs.xml
+    install -m 0644 ${S}/configs/alor-le/resourcemanager_alor_qrd.xml ${D}${sysconfdir}/resourcemanager_alor_qrd.xml
+    install -m 0644 ${S}/configs/alor-le/resourcemanager_alor_cdp.xml ${D}${sysconfdir}/resourcemanager_alor_cdp.xml
+    install -m 0644 ${S}/configs/alor-le/resourcemanager_alor_mtp_wcd9378.xml ${D}${sysconfdir}/resourcemanager_alor_mtp_wcd9378.xml
+    install -m 0644 ${S}/configs/alor-le/resourcemanager_alor_mtp_wcd939x.xml ${D}${sysconfdir}/resourcemanager_alor_mtp_wcd939x.xml
+    install -m 0644 ${S}/configs/alor-le/mixer_paths_alor_qrd.xml ${D}${sysconfdir}/mixer_paths_alor_qrd.xml
+    install -m 0644 ${S}/configs/alor-le/mixer_paths_alor_cdp.xml ${D}${sysconfdir}/mixer_paths_alor_cdp.xml
+    install -m 0644 ${S}/configs/alor-le/mixer_paths_alor_mtp_wcd9378.xml ${D}${sysconfdir}/mixer_paths_alor_mtp_wcd9378.xml
+    install -m 0644 ${S}/configs/alor-le/mixer_paths_alor_mtp_wcd939x.xml ${D}${sysconfdir}/mixer_paths_alor_mtp_wcd939x.xml
+    install -m 0644 ${S}/configs/alor-le/usecaseKvManager.xml ${D}${sysconfdir}/usecaseKvManager.xml
+    install -m 0644 ${S}/configs/alor-le/plugin_manager.xml ${D}${sysconfdir}/plugin_manager.xml
+    install -d ${D}${systemd_unitdir}/system
+    install -m 0755 ${WORKDIR}/adsprpcd_audiopd.service ${D}${systemd_unitdir}/system/
 }
 
 SYSTEMD_SERVICE:${PN}:append = " adsprpcd_audiopd.service"
