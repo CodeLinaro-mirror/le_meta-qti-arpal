@@ -120,6 +120,8 @@ do_install:append:alor() {
     install -m 0644 ${S}/configs/alor-le/mixer_paths_alor_mtp_wcd939x.xml ${D}${sysconfdir}/mixer_paths_alor_mtp_wcd939x.xml
     install -m 0644 ${S}/configs/alor-le/usecaseKvManager.xml ${D}${sysconfdir}/usecaseKvManager.xml
     install -m 0644 ${S}/configs/alor-le/plugin_manager.xml ${D}${sysconfdir}/plugin_manager.xml
+    install -m 0644 ${S}/configs/alor-le/mcs_defs_alor_mtp_wcd9378.xml ${D}${sysconfdir}/mcs_defs_alor_mtp_wcd9378.xml
+    install -m 0644 ${S}/configs/alor-le/mcs_defs_alor_mtp_wcd939x.xml ${D}${sysconfdir}/mcs_defs_alor_mtp_wcd939x.xml
     install -d ${D}${systemd_unitdir}/system
     install -m 0755 ${WORKDIR}/adsprpcd_audiopd.service ${D}${systemd_unitdir}/system/
 }
