@@ -16,7 +16,7 @@ DEPENDS = "tinyalsa tinycompress agm mm-audio-headers audio-route dspservices-he
 
 EXTRA_OECONF += "--with-glib --without-syslog --with-spf"
 EXTRA_OECONF += "--with-basemachine=${BASEMACHINE}"
-EXTRA_OECONF:append = " ${@bb.utils.contains('BASEMACHINE', 'pineapple sun kera sdmsteppe', '--with-spkrcalpath=/data/misc/audio/audio.cal', '', d)}"
+EXTRA_OECONF:append = " ${@bb.utils.contains_any('BASEMACHINE', 'pineapple sun kera sdmsteppe', '--with-spkrcalpath=/data/misc/audio/audio.cal', '', d)}"
 
 do_install:append:pineapple() {
     mkdir -p -m 0755 ${D}${sysconfdir}
@@ -105,6 +105,25 @@ do_install:append:sdmsteppe() {
    install -m 0644 ${S}/configs/sdmsteppe/plugin_manager.xml ${D}${sysconfdir}/plugin_manager.xml
    install -d ${D}${systemd_unitdir}/system
    install -m 0755 ${WORKDIR}/adsprpcd_audiopd.service ${D}${systemd_unitdir}/system/
+}
+
+do_install:append:alor() {
+    mkdir -p -m 0755 ${D}${sysconfdir}
+    install -m 0644 ${S}/configs/alor-le/card-defs.xml ${D}${sysconfdir}/card-defs.xml
+    install -m 0644 ${S}/configs/alor-le/resourcemanager_alor_qrd.xml ${D}${sysconfdir}/resourcemanager_alor_qrd.xml
+    install -m 0644 ${S}/configs/alor-le/resourcemanager_alor_cdp.xml ${D}${sysconfdir}/resourcemanager_alor_cdp.xml
+    install -m 0644 ${S}/configs/alor-le/resourcemanager_alor_mtp_wcd9378.xml ${D}${sysconfdir}/resourcemanager_alor_mtp_wcd9378.xml
+    install -m 0644 ${S}/configs/alor-le/resourcemanager_alor_mtp_wcd939x.xml ${D}${sysconfdir}/resourcemanager_alor_mtp_wcd939x.xml
+    install -m 0644 ${S}/configs/alor-le/mixer_paths_alor_qrd.xml ${D}${sysconfdir}/mixer_paths_alor_qrd.xml
+    install -m 0644 ${S}/configs/alor-le/mixer_paths_alor_cdp.xml ${D}${sysconfdir}/mixer_paths_alor_cdp.xml
+    install -m 0644 ${S}/configs/alor-le/mixer_paths_alor_mtp_wcd9378.xml ${D}${sysconfdir}/mixer_paths_alor_mtp_wcd9378.xml
+    install -m 0644 ${S}/configs/alor-le/mixer_paths_alor_mtp_wcd939x.xml ${D}${sysconfdir}/mixer_paths_alor_mtp_wcd939x.xml
+    install -m 0644 ${S}/configs/alor-le/usecaseKvManager.xml ${D}${sysconfdir}/usecaseKvManager.xml
+    install -m 0644 ${S}/configs/alor-le/plugin_manager.xml ${D}${sysconfdir}/plugin_manager.xml
+    install -m 0644 ${S}/configs/alor-le/mcs_defs_alor_mtp_wcd9378.xml ${D}${sysconfdir}/mcs_defs_alor_mtp_wcd9378.xml
+    install -m 0644 ${S}/configs/alor-le/mcs_defs_alor_mtp_wcd939x.xml ${D}${sysconfdir}/mcs_defs_alor_mtp_wcd939x.xml
+    install -d ${D}${systemd_unitdir}/system
+    install -m 0755 ${WORKDIR}/adsprpcd_audiopd.service ${D}${systemd_unitdir}/system/
 }
 
 SYSTEMD_SERVICE:${PN}:append = " adsprpcd_audiopd.service"
