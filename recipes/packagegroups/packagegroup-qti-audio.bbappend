@@ -1,3 +1,2 @@
-RDEPENDS_packagegroup-qti-audio += ' \
-    qal \
+RDEPENDS:packagegroup-qti-audio += ' \
 '
