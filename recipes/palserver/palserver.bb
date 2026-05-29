@@ -13,7 +13,7 @@ S = "${WORKDIR}/vendor/qcom/opensource/pal/ipc/SwBinders/pal_ipc_server"
 PR = "r0"
 
 # dependency
-DEPENDS = "libutils libcutils binder qal qal-headers"
+DEPENDS = "libutils libcutils binder qal"
 
 
 SOLIBS = ".so"

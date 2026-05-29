@@ -11,7 +11,7 @@ SRC_URI  = "file://vendor/qcom/opensource/pal/ipc/SwBinders/pal_ipc_client"
 S = "${WORKDIR}/vendor/qcom/opensource/pal/ipc/SwBinders/pal_ipc_client"
 PR = "r0"
 
-DEPENDS = "libutils libcutils binder palserver qal-headers"
+DEPENDS = "libutils libcutils binder palserver qal"
 
 
 SOLIBS = ".so"
