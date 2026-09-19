@@ -8,7 +8,7 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/meta-qti-bsp/files/common-licenses/${LICE
 FILESPATH =+ "${WORKSPACE}/:"
 SRC_URI  = "file://vendor/qcom/opensource/pal/ipc/SwBinders/pal_ipc_client"
 
-S = "${WORKDIR}/vendor/qcom/opensource/pal/ipc/SwBinders/pal_ipc_client"
+S = "${UNPACKDIR}/vendor/qcom/opensource/pal/ipc/SwBinders/pal_ipc_client"
 PR = "r0"
 
 DEPENDS = "libutils libcutils binder palserver qal"

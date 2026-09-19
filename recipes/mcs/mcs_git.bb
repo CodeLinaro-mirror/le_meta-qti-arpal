@@ -8,7 +8,7 @@ ${LICENSE};md5=3775480a712fc46a69647678acb234cb"
 
 FILESPATH =+ "${WORKSPACE}/:"
 SRC_URI  = "file://vendor/qcom/opensource/qal/mcs/"
-S = "${WORKDIR}/vendor/qcom/opensource/qal/mcs/"
+S = "${UNPACKDIR}/vendor/qcom/opensource/qal/mcs/"
 
 EXTRA_OECONF += "--with-acdbdata=${STAGING_INCDIR}/acdbdata"
 
