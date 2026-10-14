@@ -60,6 +60,8 @@ do_install:append:sun() {
     install -m 0644 ${S}/configs/sun/resourcemanager_sun_mtp.xml ${D}${sysconfdir}/resourcemanager_sun_mtp.xml
     install -m 0644 ${S}/configs/sun/mixer_paths_sun_mtp.xml ${D}${sysconfdir}/mixer_paths_sun_mtp.xml
     install -m 0644 ${S}/configs/sun/resourcemanager_sun_qrd_sku2.xml ${D}${sysconfdir}/resourcemanager_sun_qrd_sku2.xml
+    install -m 0644 ${S}/configs/sun/mixer_paths_sun_evk.xml ${D}${sysconfdir}/mixer_paths_sun_evk.xml
+    install -m 0644 ${S}/configs/sun/resourcemanager_sun_evk.xml ${D}${sysconfdir}/resourcemanager_sun_evk.xml
     install -m 0644 ${S}/configs/sun/plugin_manager.xml ${D}${sysconfdir}/plugin_manager.xml
     install -d ${D}${systemd_unitdir}/system
     install -m 0755 ${WORKDIR}/adsprpcd_audiopd.service ${D}${systemd_unitdir}/system/
